@@ -12,7 +12,7 @@ namespace MentoringLesson1
     {
         private FileStream memoryStream;
         private StreamWriter streamWriter;
-        private bool disposed;
+      
         
         public MemoryStreamLogger()
         {
@@ -29,24 +29,14 @@ namespace MentoringLesson1
         
         protected virtual void Dispose(bool disposing)
         {
-            if (disposed) return;
-
-            if (disposing)
-            {
-                if (memoryStream!=null && streamWriter!=null)
-                {
+            if (!disposing) return;
+            if (memoryStream == null || streamWriter == null) return;
+            
+            streamWriter.Dispose();
+            memoryStream.Dispose();
                     
-                    streamWriter.Dispose();
-                    //Console.WriteLine("Stream Writer Disposed");
-                    memoryStream.Dispose();
-                    //Console.WriteLine("Memory Stream Disposed");
-                    memoryStream =null;
-                    streamWriter = null;
-
-                }
-
-                disposed = true;
-            }
+            memoryStream =null;
+            streamWriter = null;
         }
 
         public void Dispose()
@@ -55,9 +45,6 @@ namespace MentoringLesson1
             GC.SuppressFinalize(this);
         }
 
-        ~MemoryStreamLogger()
-        {
-            Dispose(false);
-        }
+      
     }
 }
