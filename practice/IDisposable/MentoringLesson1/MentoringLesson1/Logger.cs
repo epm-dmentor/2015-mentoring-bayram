@@ -29,20 +29,20 @@ namespace MentoringLesson1
         
         protected virtual void Dispose(bool disposing)
         {
-            if (!disposing) return;
-            if (memoryStream == null || streamWriter == null) return;
-            
-            streamWriter.Dispose();
-            memoryStream.Dispose();
-                    
-            memoryStream =null;
-            streamWriter = null;
+            if (disposing && memoryStream != null && streamWriter != null)
+            {
+                streamWriter.Dispose();
+                memoryStream.Dispose();
+
+                memoryStream = null;
+                streamWriter = null;
+            }
         }
 
         public void Dispose()
         {
             Dispose(true);
-            GC.SuppressFinalize(this);
+            
         }
 
       
