@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Configuration;
+using System.IO;
 using System.Runtime.InteropServices;
 
 namespace Unmanaged
@@ -8,6 +9,10 @@ namespace Unmanaged
     {
         private const int StdOutputHandle = -11;
         private IntPtr _consoleHandle;
+
+        private FileStream fileStream;
+        private StreamWriter streamWriter;
+
         [DllImport("kernel32.dll", SetLastError = true)]
         private static extern IntPtr GetStdHandle(int nStdHandle);
 
@@ -24,6 +29,8 @@ namespace Unmanaged
 
         public ApplicationConsole()
         {
+            this.fileStream = new FileStream(@"D:\output.txt", FileMode.OpenOrCreate);
+            this.streamWriter = new StreamWriter(fileStream);
             _consoleHandle = GetStdHandle(StdOutputHandle);
 
             if (_consoleHandle == IntPtr.Zero)
@@ -43,14 +50,37 @@ namespace Unmanaged
             WriteConsole(_consoleHandle, "\n", 1, out charsWritten, IntPtr.Zero);
         }
 
+
+        public void WriteToFile(string outputStr, params object[] args)
+        {
+            if (_consoleHandle == IntPtr.Zero)
+                throw new ObjectDisposedException("Object has been already disposed or was not allocated properly!");
+
+            var formatedStr = String.Format(outputStr, args);
+
+            streamWriter.Write(formatedStr);
+            streamWriter.Flush();
+        }
+
         protected virtual void Dispose(bool disposing)
         {
- 
-            if (_consoleHandle == IntPtr.Zero || !disposing) return;
-            CloseHandle(_consoleHandle);
-            _consoleHandle = IntPtr.Zero;
+
+            if (disposing && streamWriter!=null && fileStream!=null)
+            {
+                streamWriter.Dispose();
+                fileStream.Dispose();
+                streamWriter = null;
+                fileStream = null;
+            }
+
+            if (_consoleHandle != IntPtr.Zero)
+            {
+                CloseHandle(_consoleHandle);
+                _consoleHandle = IntPtr.Zero;
+            }
 
         }
+
 
         public void Dispose()
         {
@@ -60,7 +90,6 @@ namespace Unmanaged
 
         ~ApplicationConsole()
         {
-            
             Dispose(false);
         }
 
