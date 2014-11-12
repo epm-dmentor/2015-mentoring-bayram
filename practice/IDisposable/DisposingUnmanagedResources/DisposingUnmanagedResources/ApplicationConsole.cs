@@ -8,7 +8,6 @@ namespace Unmanaged
     {
         private const int StdOutputHandle = -11;
         private IntPtr _consoleHandle;
-        private bool _disposed = false;
         [DllImport("kernel32.dll", SetLastError = true)]
         private static extern IntPtr GetStdHandle(int nStdHandle);
 
@@ -46,14 +45,11 @@ namespace Unmanaged
 
         protected virtual void Dispose(bool disposing)
         {
-            if (_disposed) return;
-            if (disposing && _consoleHandle != IntPtr.Zero)
-            {
-                CloseHandle(_consoleHandle);
-               _consoleHandle = IntPtr.Zero;
-                      
-            }
-           _disposed = true;
+ 
+            if (_consoleHandle == IntPtr.Zero || !disposing) return;
+            CloseHandle(_consoleHandle);
+            _consoleHandle = IntPtr.Zero;
+
         }
 
         public void Dispose()
@@ -64,12 +60,7 @@ namespace Unmanaged
 
         ~ApplicationConsole()
         {
-            if (_consoleHandle != IntPtr.Zero)
-            {
-                CloseHandle(_consoleHandle);
-                _consoleHandle = IntPtr.Zero;
-                
-            }
+            
             Dispose(false);
         }
 
