@@ -65,7 +65,9 @@ namespace ExchangeApplication
 
         void SellEventHandler(object sender, Share e)
         {
-            Console.WriteLine("Transaction for share: {0} was sold. Banks took commission of 0,1%", e.ShareName);
+            double commission = e.SharePrice * 0.1 / 100;
+            Console.WriteLine("Transaction for share: {0} was sold. Banks took commission of 0,1% " +
+                              "from {1},which makes {2}", e.ShareName, e.SharePrice, commission);
             
         }
 
