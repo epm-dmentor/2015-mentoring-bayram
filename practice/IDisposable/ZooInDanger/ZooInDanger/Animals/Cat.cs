@@ -1,9 +1,11 @@
 ﻿using System;
+using System.Threading;
 
 namespace Zoo.Animals
 {
     public class Cat : Animal
     {
+        //Zoo zoo = new Zoo();
         public Cat(IAnimalStatusTracker statusTracker) : base(statusTracker)
         {
         }
@@ -23,7 +25,10 @@ namespace Zoo.Animals
             Logger.LogYellow("Finalizing cat!");
 
             //Releasea object only in case troops number > 100
-            while (Zoo.Troops > 200) { }
+            while (Zoo.Troops > 200)
+            {
+                Interlocked.Decrement(ref Zoo.Troops);
+            }
         }
     }
 }

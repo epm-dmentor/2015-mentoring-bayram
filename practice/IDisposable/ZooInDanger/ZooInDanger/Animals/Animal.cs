@@ -23,7 +23,7 @@ namespace Zoo.Animals
         private readonly int _id;
         private readonly IAnimalStatusTracker _statusTracker;
         private bool _isAlive = true;
-
+       
         public virtual int LifeInterval { get { return lifeInterval; }}
         public virtual int InfectionResistance { get { return infectionResistance; } }
         public virtual int InfectionDeathInterval { get { return infectionDeathInterval; } }
@@ -120,6 +120,8 @@ namespace Zoo.Animals
             _isAlive = false;
             Logger.Log("Ruining animal: {0}, ID = {1}", GetType().Name, _id);
             Interlocked.Decrement(ref Zoo.Troops);
+        
+            
             Logger.LogYellow("Ruining animal: {0} finished, ID= {1}", GetType().Name, _id);
         }
 

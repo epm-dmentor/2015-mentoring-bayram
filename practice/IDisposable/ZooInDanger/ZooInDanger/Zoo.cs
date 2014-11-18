@@ -83,6 +83,7 @@ namespace Zoo
                     Console.WriteLine("Running CG collect");
                     Console.Beep();
                     GC.Collect();
+                    
                     Thread.Sleep(200);
                     Console.ResetColor();
                 }
@@ -162,5 +163,7 @@ namespace Zoo
         {
             LiveOrganizer();
         }
+
+
     }
 }
