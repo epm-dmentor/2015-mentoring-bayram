@@ -3,3 +3,4 @@ bin/
 *.vsp
 *.psess
 *.suo
+*.exe
