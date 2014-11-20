@@ -28,7 +28,6 @@ namespace Zoo.Animals
             while (Zoo.Troops > 100)
             {
                 Interlocked.Decrement(ref Zoo.Troops);
-                
             }
         }
     }
