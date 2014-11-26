@@ -52,10 +52,10 @@ namespace StockExchange
             this._share = share;
             string brokername = broker.BrokerName();//get Brokername who wants to buy share
             var shareprice = share.SharePrice;//get shareprice
-            var firstOrDefault = _accounts.FirstOrDefault(x => x.BrokerName.Equals(brokername));//get Broker Account from Accounts List
-            if (firstOrDefault != null) // check if account is not null
+            var account = _accounts.FirstOrDefault(x => x.BrokerName.Equals(brokername));//get Broker Account from Accounts List
+            if (account != null) // check if account is not null
             {
-                var brokermoney = firstOrDefault.MoneyAmount; // get broker's money amount on his account
+                var brokermoney = account.MoneyAmount; // get broker's money amount on his account
                 if (brokermoney < shareprice) // Check if broker has enough money on his account to purchase share
                 {
                     Console.WriteLine("INFO for {0} : Insufficient funds. Please ask StockExchange" +
@@ -65,7 +65,7 @@ namespace StockExchange
                 {
                     double bankcommission = shareprice * 0.01 / 100;//calculate bank commission
                     brokermoney = brokermoney - shareprice - bankcommission; //calculate broker's money after transaction
-                    firstOrDefault.MoneyAmount = brokermoney;// set broker's money value after transaction
+                    account.MoneyAmount = brokermoney;// set broker's money value after transaction
                     NotifySold(); //Notify all subscribers
                 }
             }
@@ -77,13 +77,13 @@ namespace StockExchange
             this._share = share;
             string brokername = broker.BrokerName(); //get Brokername who wants to sell share
             var shareprice = share.SharePrice;// get SharePrice
-            var firstOrDefault = _accounts.FirstOrDefault(x => x.BrokerName.Equals(brokername));//get Broker Account from Accounts List
-            if (firstOrDefault != null) //check if account is not null
+            var account = _accounts.FirstOrDefault(x => x.BrokerName.Equals(brokername));//get Broker Account from Accounts List
+            if (account != null) //check if account is not null
             {
-                var brokermoney = firstOrDefault.MoneyAmount; // get broker's money amount on his account.
+                var brokermoney = account.MoneyAmount; // get broker's money amount on his account.
                 double bankcommission = shareprice * 0.01 / 100; //calculate bank commission
                 brokermoney = brokermoney + shareprice - bankcommission; //calculate broker's money after transaction
-                firstOrDefault.MoneyAmount = brokermoney; // set broker's money value after transaction
+                account.MoneyAmount = brokermoney; // set broker's money value after transaction
                 NotifyBought(); // notify all subscribers
             }
 
