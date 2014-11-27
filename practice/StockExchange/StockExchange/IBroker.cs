@@ -8,10 +8,8 @@ namespace StockExchange
 {
     public interface IBroker
     {
-        string BrokerName();
+        string Name { get; }
         void SellShare(Share share,IStockExchange stockExchange);
         void BuyShare(Share share,IStockExchange stockExchange);
-        void UpdateBought(IStockExchange stockExchange);
-        void UpdateSold(IStockExchange stockExchange);
     }
 }

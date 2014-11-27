@@ -13,12 +13,16 @@ namespace StockExchange
             var share = new Share {SharName = "AAPL", SharePrice = 501};
             var share1 = new Share { SharName = "GOOGL", SharePrice = 740 };
             
-            var stock =new StockExchange(new List<Share>{share,share1});
+            var stock = new StockExchange();
             
             var broker = new Broker("Bayram");
             var broker1 = new Broker("Azat");
-            stock.SubscribeBroker(broker);
-            stock.SubscribeBroker(broker1);
+            
+            stock.Register(broker);
+            stock.OnShareBought += broker.UpdateBought;
+
+            stock.Subscribe(broker);
+            stock.Subscribe(broker1);
            
             broker1.BuyShare(share,stock);
             broker1.BuyShare(share,stock);

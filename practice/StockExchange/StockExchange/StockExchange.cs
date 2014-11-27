@@ -1,37 +1,23 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace StockExchange
 {
     public class StockExchange : IStockExchange
     {
-
         private Share _share;
-        private List<Share> _shares;
-        private List<BrokerAccount> _accounts;
+        private readonly List<BrokerAccount> _accounts = new List<BrokerAccount>();
 
-        public delegate void ShareBought(IStockExchange stock); //Action when share is bought
-        public delegate void ShareSold(IStockExchange stock); // Action when share is sold
-
-        public ShareBought OnShareBought; 
+        public ShareBought OnShareBought;
         public ShareSold OnShareSold;
-
-
-        public StockExchange(List<Share> shares) // Constructor which takes as a parameter List of shares which will be sold or bought
-        {
-            this._shares = shares;
-            this._accounts = new List<BrokerAccount>(); // Create account list for brokers who is going to subscribe to StockExchange
-        }
 
         public Share GetShare()
         {
             return this._share; // Method to return share
         }
 
-        public void SubscribeBroker(IBroker broker)
+        public void Subscribe(IBroker broker)
         {
             OnShareBought += broker.UpdateBought; //Subscribe broker in paramater to OnShareBought action(delegate)
             OnShareSold += broker.UpdateSold; //Subscribe broker in paramater to OnShareSold action(delegate)
@@ -41,7 +27,7 @@ namespace StockExchange
 
         }
 
-        public void UnsubscribeBroker(IBroker broker)
+        public void Unsubscribe(IBroker broker)
         {
             if (OnShareBought != null) OnShareBought -= broker.UpdateBought;
             if (OnShareSold != null) OnShareSold -= broker.UpdateSold;
@@ -97,12 +83,20 @@ namespace StockExchange
             }
         }
 
-        public void NotifySold() // Implementation of NotifyBought() method.
+        public void NotifySold()
         {
-            if (OnShareSold != null)
+            //to avoid null reference exception
+            var handler = OnShareSold;
+            if (handler != null)
             {
-                OnShareSold(this);
+                handler(this);
             }
+        }
+
+        public void Register(Broker broker)
+        {
+            var account = new BrokerAccount { BrokerName = broker.BrokerName(), MoneyAmount = 1000 };//Create account for newly subscribed broker
+            _accounts.Add(account); //Add account to our accounts list
         }
     }
 }

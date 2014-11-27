@@ -8,8 +8,12 @@ namespace StockExchange
 {
     public interface IStockExchange
     {
-        void SubscribeBroker(IBroker broker);
-        void UnsubscribeBroker(IBroker broker);
+        /// <summary>
+        /// Subscribes to stock exchange events
+        /// </summary>
+        /// <param name="broker"></param>
+        void Subscribe(IBroker broker);
+        void Unsubscribe(IBroker broker);
         void SellShare(Share share,IBroker broker);
         void BuyShare(Share share,IBroker broker);
         void NotifyBought();
