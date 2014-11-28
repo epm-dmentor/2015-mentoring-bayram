@@ -1,5 +1,5 @@
 ﻿namespace StockExchange
 {
-    public delegate void ShareBought(IStockExchange stock); //Action when share is bought
-    public delegate void ShareSold(IStockExchange stock); // Action when share is sold 
+    public delegate void ShareBought(DealInfo dealInfo);
+    public delegate void ShareSold(DealInfo dealInfo);
 }

@@ -6,97 +6,151 @@ namespace StockExchange
 {
     public class StockExchange : IStockExchange
     {
-        private Share _share;
-        private readonly List<BrokerAccount> _accounts = new List<BrokerAccount>();
+        #region Fields
 
+        private readonly List<Share> _shares;
+        private readonly List<BrokerAccount> _accounts = new List<BrokerAccount>();
         public ShareBought OnShareBought;
         public ShareSold OnShareSold;
+        
+        #endregion
 
-        public Share GetShare()
+        #region Constructor
+        public StockExchange(List<Share> shares)
         {
-            return this._share; // Method to return share
+            this._shares = shares;
         }
+        #endregion
+       
 
-        public void Subscribe(IBroker broker)
+        #region Methods
+        /// <summary>
+        /// StockExchange sells share, when Broker buys
+        /// </summary>
+        /// <param name="share"></param>
+        /// <param name="amount"></param>
+        /// <param name="broker"></param>
+        /// 
+        public void SellShare(Share share,int amount, IBroker broker) 
         {
-            OnShareBought += broker.UpdateBought; //Subscribe broker in paramater to OnShareBought action(delegate)
-            OnShareSold += broker.UpdateSold; //Subscribe broker in paramater to OnShareSold action(delegate)
-            
-            var account = new BrokerAccount { BrokerName = broker.BrokerName(), MoneyAmount = 1000 };//Create account for newly subscribed broker
-            _accounts.Add(account); //Add account to our accounts list
-
-        }
-
-        public void Unsubscribe(IBroker broker)
-        {
-            if (OnShareBought != null) OnShareBought -= broker.UpdateBought;
-            if (OnShareSold != null) OnShareSold -= broker.UpdateSold;
-        }
-
-        public void SellShare(Share share, IBroker broker) //StockExchange sells share, when Broker buys
-        {
-            this._share = share;
-            string brokername = broker.BrokerName();//get Brokername who wants to buy share
-            var shareprice = share.SharePrice;//get shareprice
-            var account = _accounts.FirstOrDefault(x => x.BrokerName.Equals(brokername));//get Broker Account from Accounts List
-            if (account != null) // check if account is not null
+            var brokername = broker.Name;
+            var shareprice = share.SharePrice;
+            var account = _accounts.FirstOrDefault(x => x.BrokerName.Equals(brokername));
+            var shareindex = _shares.IndexOf(share);
+            if (account == null)
             {
-                var brokermoney = account.MoneyAmount; // get broker's money amount on his account
-                if (brokermoney < shareprice) // Check if broker has enough money on his account to purchase share
+                Console.WriteLine("Account for {0} does not exist. Please contact StockExchange to create account.",broker.Name);
+            }
+            else
+            {
+                var brokermoney = account.MoneyAmount;
+                if (brokermoney < shareprice && !_shares.Contains(share) && _shares[shareindex].ShareAmount < amount)
                 {
-                    Console.WriteLine("INFO for {0} : Insufficient funds. Please ask StockExchange" +
-                                      " to add more money to your account.", brokername); // Notify broker if he has not enough money
+                    Console.WriteLine("INFO for {0} : Insufficient funds or Non Existent share. Please contact StockExchange" +
+                                      " to resolve your issue.", brokername);
                 }
                 else
                 {
-                    double bankcommission = shareprice * 0.01 / 100;//calculate bank commission
-                    brokermoney = brokermoney - shareprice - bankcommission; //calculate broker's money after transaction
-                    account.MoneyAmount = brokermoney;// set broker's money value after transaction
-                    NotifySold(); //Notify all subscribers
+                    var bankcommission = shareprice * amount * 0.01 / 100;
+                    brokermoney = brokermoney - shareprice * amount - bankcommission;
+                    share.ShareAmount = share.ShareAmount - amount;
+                    _shares[shareindex] = share;
+                    account.MoneyAmount = brokermoney;
+
+                    var dealInfo = new DealInfo
+                    {
+                        DealDate = DateTime.UtcNow,
+                        ShareAmount = amount,
+                        ShareName = share.SharName,
+                        SharePrice = shareprice
+                    };
+                    NotifySold(dealInfo);
+                }   
+            }
+            
+        }
+
+        /// <summary>
+        /// //StockExchange buys share, when Broker sells
+        /// </summary>
+        /// <param name="share"></param>
+        /// <param name="amount"></param>
+        /// <param name="broker"></param>
+        
+        public void BuyShare(Share share,int amount, IBroker broker) 
+        {
+
+            var brokername = broker.Name;
+            var shareprice = share.SharePrice;
+            var account = _accounts.FirstOrDefault(x => x.BrokerName.Equals(brokername));
+            var shareindex = _shares.IndexOf(share);
+            if (account == null)
+            {
+                Console.WriteLine("Account for {0} does not exist. Please contact StockExchange to create account.", broker.Name);
+            }
+            else
+            {
+                var brokermoney = account.MoneyAmount;
+                if (!_shares.Contains(share) && _shares[shareindex].ShareAmount < amount)
+                {
+                    Console.WriteLine("INFO for {0} : Non Existent share. Please contact StockExchange" +
+                                      " to resolve your issue.", brokername);
+                }
+                else
+                {
+                    var bankcommission = shareprice * amount * 0.01 / 100;
+                    brokermoney = brokermoney + shareprice * amount - bankcommission;
+                    share.ShareAmount = share.ShareAmount + amount;
+                    _shares[shareindex] = share;
+                    account.MoneyAmount = brokermoney;
+
+                    var dealInfo = new DealInfo
+                    {
+                        DealDate = DateTime.UtcNow,
+                        ShareAmount = amount,
+                        ShareName = share.SharName,
+                        SharePrice = shareprice
+                    };
+                    NotifyBought(dealInfo);
                 }
             }
-
+            
         }
-
-        public void BuyShare(Share share, IBroker broker) //StockExchange buys share, when Broker sells
+        
+        /// <summary>
+        /// Notification sent to all subscribers when share bought
+        /// </summary>
+        public void NotifyBought(DealInfo dealInfo) 
         {
-            this._share = share;
-            string brokername = broker.BrokerName(); //get Brokername who wants to sell share
-            var shareprice = share.SharePrice;// get SharePrice
-            var account = _accounts.FirstOrDefault(x => x.BrokerName.Equals(brokername));//get Broker Account from Accounts List
-            if (account != null) //check if account is not null
+            if (OnShareBought != null) 
             {
-                var brokermoney = account.MoneyAmount; // get broker's money amount on his account.
-                double bankcommission = shareprice * 0.01 / 100; //calculate bank commission
-                brokermoney = brokermoney + shareprice - bankcommission; //calculate broker's money after transaction
-                account.MoneyAmount = brokermoney; // set broker's money value after transaction
-                NotifyBought(); // notify all subscribers
-            }
-
-        }
-
-        public void NotifyBought() // Implementation of NotifyBought() method.
-        {
-            if (OnShareBought != null) //Check if OnshareBought is not null
-            {
-                OnShareBought(this); 
+                OnShareBought(dealInfo); 
             }
         }
 
-        public void NotifySold()
+        /// <summary>
+        /// Notification sent to all subscribers when share sold
+        /// </summary>
+        public void NotifySold(DealInfo dealInfo)
         {
-            //to avoid null reference exception
+            
             var handler = OnShareSold;
             if (handler != null)
             {
-                handler(this);
+                handler(dealInfo);
             }
         }
-
+        /// <summary>
+        /// //Add account to our accounts list with default account money amount of 1000 USD
+        /// </summary>
+        /// <param name="broker"></param>
+        
         public void Register(Broker broker)
         {
-            var account = new BrokerAccount { BrokerName = broker.BrokerName(), MoneyAmount = 1000 };//Create account for newly subscribed broker
-            _accounts.Add(account); //Add account to our accounts list
+            var account = new BrokerAccount { BrokerName = broker.Name, MoneyAmount = 1000 };
+            _accounts.Add(account);
         }
+        #endregion
+
     }
 }

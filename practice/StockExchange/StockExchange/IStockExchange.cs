@@ -6,19 +6,15 @@ using System.Threading.Tasks;
 
 namespace StockExchange
 {
+
     public interface IStockExchange
     {
-        /// <summary>
-        /// Subscribes to stock exchange events
-        /// </summary>
-        /// <param name="broker"></param>
-        void Subscribe(IBroker broker);
-        void Unsubscribe(IBroker broker);
-        void SellShare(Share share,IBroker broker);
-        void BuyShare(Share share,IBroker broker);
-        void NotifyBought();
-        void NotifySold();
-        Share GetShare();
+       
+        void SellShare(Share share,int amount,IBroker broker);
+        void BuyShare(Share share,int amount,IBroker broker);
+        void NotifyBought(DealInfo dealInfo);
+        void NotifySold(DealInfo dealInfo);
+       
 
     }
 }

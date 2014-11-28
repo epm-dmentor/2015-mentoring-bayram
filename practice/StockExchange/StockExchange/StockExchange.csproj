@@ -41,8 +41,10 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AnyOtherSubscriber.cs" />
     <Compile Include="Broker.cs" />
     <Compile Include="BrokerAccount.cs" />
+    <Compile Include="DealInfo.cs" />
     <Compile Include="IBroker.cs" />
     <Compile Include="IStockEventSubscriber.cs" />
     <Compile Include="IStockExchange.cs" />

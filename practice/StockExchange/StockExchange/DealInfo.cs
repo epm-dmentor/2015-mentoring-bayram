@@ -6,10 +6,11 @@ using System.Threading.Tasks;
 
 namespace StockExchange
 {
-    public class Share
+    public class DealInfo
     {
-        public string SharName { get; set; }
+        public string ShareName { get; set; }
         public double SharePrice { get; set; }
         public int ShareAmount { get; set; }
+        public DateTime DealDate { get; set; }
     }
 }

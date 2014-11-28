@@ -10,24 +10,27 @@ namespace StockExchange
     {
         static void Main(string[] args)
         {
-            var share = new Share {SharName = "AAPL", SharePrice = 501};
-            var share1 = new Share { SharName = "GOOGL", SharePrice = 740 };
-            
-            var stock = new StockExchange();
+            var share = new Share {SharName = "AAPL", SharePrice = 301,ShareAmount = 100};
+            var share1 = new Share { SharName = "GOOGL", SharePrice = 740,ShareAmount = 125};
+            var list = new List<Share> {share, share1};
+            var stock = new StockExchange(list);
             
             var broker = new Broker("Bayram");
             var broker1 = new Broker("Azat");
-            
-            stock.Register(broker);
-            stock.OnShareBought += broker.UpdateBought;
+            var othersubscriber = new AnyOtherSubscriber("Student");
 
-            stock.Subscribe(broker);
-            stock.Subscribe(broker1);
-           
-            broker1.BuyShare(share,stock);
-            broker1.BuyShare(share,stock);
-            broker1.SellShare(share1,stock);
-           
+            stock.Register(broker);
+            stock.Register(broker1);
+            stock.OnShareBought += broker.OnBought;
+            stock.OnShareSold += broker.OnSold;
+            stock.OnShareBought += broker1.OnBought;
+            stock.OnShareSold += broker1.OnSold;
+            stock.OnShareSold += othersubscriber.OnSold;
+            stock.OnShareBought += othersubscriber.OnBought;
+            
+            broker1.BuyShare(share,2,stock);
+            broker.SellShare(share1,3,stock);
+            
             
             Console.ReadKey();
         }

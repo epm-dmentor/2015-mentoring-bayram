@@ -9,7 +9,7 @@ namespace StockExchange
     public interface IBroker
     {
         string Name { get; }
-        void SellShare(Share share,IStockExchange stockExchange);
-        void BuyShare(Share share,IStockExchange stockExchange);
+        void SellShare(Share share,int amount,IStockExchange stockExchange);
+        void BuyShare(Share share,int amount,IStockExchange stockExchange);
     }
 }

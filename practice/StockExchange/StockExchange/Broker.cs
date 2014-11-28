@@ -6,43 +6,64 @@ using System.Threading.Tasks;
 
 namespace StockExchange
 {
-    public class Broker:IBroker
+    public class Broker:IBroker,IStockEventSubscriber
     {
-        private string _name;
-
         public Broker(string name)
         {
-            this._name = name;
+            this.Name = name;
         }
+
+        public string Name { get; private set; }
+
+        #region Methods
+
+        /// <summary>
+        /// Method which invokes StockExchange's BuyShare() method passing share and itself.
+        /// </summary>
+        /// <param name="share"></param>
+        /// <param name="amount"></param>
+        /// <param name="stockExchange"></param>
         
-        public void SellShare(Share share,IStockExchange stockExchange)
+        public void SellShare(Share share,int amount,IStockExchange stockExchange)
         {
-            stockExchange.BuyShare(share,this); //Method which invokes StockExchange's BuyShare() method passing share and itself.
+            stockExchange.BuyShare(share,amount,this); 
         }
 
-        public void BuyShare(Share share,IStockExchange stockExchange)
+        /// <summary>
+        /// Method which invokes StockExchange's SellShare() method passing share and itself.
+        /// </summary>
+        /// <param name="share"></param>
+        /// <param name="amount"></param>
+        /// <param name="stockExchange"></param>
+        
+        public void BuyShare(Share share,int amount,IStockExchange stockExchange)
         {
-            stockExchange.SellShare(share, this); //Method which invokes StockExchange's SellShare() method passing share and itself.
+            stockExchange.SellShare(share,amount, this); 
         }
 
-        public void UpdateBought(IStockExchange stockExchange)
+       
+        /// <summary>
+        /// Method which is invoked by NotifyBought from StockExchange to update broker about bought share
+        /// </summary>
+        /// <param name="dealInfo"></param>
+        
+        public void OnBought(DealInfo dealInfo)
         {
-            //Method which is invoked by NotifyBought from StockExchange to update broker about bought share
-            var share = stockExchange.GetShare();
-            Console.WriteLine("Notification for broker {0} : Share {1} bought with price {2} ",this._name, share.SharName, share.SharePrice);
+            Console.WriteLine("Notification for broker {0} : Share {1} bought, amount is - {2} with price {3} on {4}", this.Name, 
+                dealInfo.ShareName, dealInfo.ShareAmount,dealInfo.SharePrice,dealInfo.DealDate);
         }
 
-
-        public void UpdateSold(IStockExchange stockExchange)
+        /// <summary>
+        /// Method which is invoked by NotifySold from StockExchange to update broker about sold share
+        /// </summary>
+        /// <param name="dealInfo"></param>
+        
+        public void OnSold(DealInfo dealInfo)
         {
-            //Method which is invoked by NotifySold from StockExchange to update broker about sold share
-            var share = stockExchange.GetShare();
-            Console.WriteLine("Notification for broker {0} : Share {1} sold with price {2} ",this._name, share.SharName, share.SharePrice);
+            Console.WriteLine("Notification for broker {0} : Share {1} sold, amount is - {2} with price {3} on {4}", this.Name,
+                dealInfo.ShareName, dealInfo.ShareAmount, dealInfo.SharePrice, dealInfo.DealDate);
         }
-
-        public string BrokerName()
-        {
-            return this._name;
-        }
+        #endregion
+        
     }
 }
