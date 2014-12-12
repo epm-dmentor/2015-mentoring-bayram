@@ -10,5 +10,8 @@ namespace StockExchange
     {
         public string BrokerName { get; set; }
         public double MoneyAmount { get; set; }
+        public List<Share> BrokerShares { get; set; }
+ 
+
     }
 }

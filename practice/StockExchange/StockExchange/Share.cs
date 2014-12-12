@@ -8,8 +8,32 @@ namespace StockExchange
 {
     public class Share
     {
-        public string SharName { get; set; }
-        public double SharePrice { get; set; }
-        public int ShareAmount { get; set; }
+        private string _shareName;
+        private double _sharePrice;
+        private int _shareAmount;
+        
+        public Share(string sharename, double shareprice, int shareamount)
+        {
+            this._shareName = sharename;
+            this._sharePrice = shareprice;
+            this._shareAmount = shareamount;
+        }
+
+        public string ShareName
+        {
+            get { return this._shareName; }
+            
+        }
+
+        public double SharePrice
+        {
+            get { return this._sharePrice; }
+        }
+
+        public int ShareAmount
+        {
+            get { return this._shareAmount; }
+            set { this._shareAmount = value; }
+        }
     }
 }
