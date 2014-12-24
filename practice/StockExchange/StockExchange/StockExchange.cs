@@ -6,27 +6,21 @@ namespace StockExchange
 {
     public class StockExchange : IStockExchange
     {
-        #region Fields
+        private readonly IList<Share> _shares;
+        private readonly IList<BrokerAccount> _accounts = new List<BrokerAccount>();
 
-        private readonly List<Share> _shares;
-        private readonly List<BrokerAccount> _accounts = new List<BrokerAccount>();
-        public ShareBought OnShareBought;
-        public ShareSold OnShareSold;
-        public AppliedForShareSell OnAppliedForShareSell;
-        private readonly ILogger _logger;
-        #endregion
-
-        #region Constructor
-        public StockExchange(List<Share> shares)
+        public StockExchange(IEnumerable<Share> shares)
         {
-            this._shares = shares;
-            this._logger=new Logger();
+            _shares = new List<Share>(shares);
         }
-        #endregion
        
 
         #region Methods
 
+        public void Buy(Share share, int amount, IBroker broker)
+        {
+            throw new NotImplementedException();
+        }
 
         /// <summary>
         ///Method which is invoked when broker applies for share 
@@ -34,7 +28,7 @@ namespace StockExchange
         /// <param name="share"></param>
         /// <param name="amount"></param>
         /// <param name="broker"></param>
-        public void ApplyForShareSell(Share share, int amount, IBroker broker)
+        public void RequestSelling(Share share, int amount, IBroker broker)
         {
             var dealInfo = new DealInfo(share.ShareName, share.SharePrice, amount, DateTime.UtcNow);
             
@@ -64,7 +58,7 @@ namespace StockExchange
         /// <param name="amount"></param>
         /// <param name="broker"></param>
         /// 
-        public void SellShare(Share share,int amount, IBroker broker) 
+        public void Sell(Share share,int amount, IBroker broker) 
         {
             var brokername = broker.Name;
             var shareprice = share.SharePrice;
@@ -202,5 +196,49 @@ namespace StockExchange
         }
         #endregion
 
-   }
+
+        public event ShareSoldHandler Sold;
+
+        public event ShareSellingHandler Selling;
+
+        public void Bid(Share share)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void Register(IBroker broker)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void UnRegister(IBroker broker)
+        {
+            throw new NotImplementedException();
+        }
+
+        public bool Buy(string securityId, int amount, IBroker broker)
+        {
+            throw new NotImplementedException();
+        }
+
+        public string RequestSelling(string securityId, int amount, IBroker broker)
+        {
+            throw new NotImplementedException();
+        }
+
+        public bool CancelRequest(string requestId)
+        {
+            throw new NotImplementedException();
+        }
+
+        public BrokerAccountInfo GetAccountInfo(IBroker broker)
+        {
+            throw new NotImplementedException();
+        }
+
+        public IReadOnlyList<Share> GetSecurities()
+        {
+            throw new NotImplementedException();
+        }
+    }
 }

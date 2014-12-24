@@ -1,16 +1,15 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
+﻿
 namespace StockExchange
 {
-    public interface IBroker
+    public interface IBroker : IStockEventSubscriber
     {
         string Name { get; }
-        void ApplyForSell(Share share, int amount, IStockExchange stockExchange);
-        //void SellShare(Share share,int amount,IStockExchange stockExchange);
-        void BuyShare(Share share,int amount,IStockExchange stockExchange);
+
+        bool RequestSelling(string securityId, int amount);
+        bool Buy(string securityId, int amount);
+        void RequestFulfiled(string requestId);
+
+        void Settle(IStockExchange stockExchange);
+        void UnSettle(IStockExchange stockExchange);
     }
 }

@@ -1,8 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace StockExchange
 {
@@ -10,35 +6,40 @@ namespace StockExchange
     {
         static void Main(string[] args)
         {
-            var share = new Share("AAPL", 301, 100);
-            var share1 = new Share("GOOGL", 740,125);
-            
-            
-            var list = new List<Share> {share, share1};
-            var stock = new StockExchange(list);
-            
-            var broker = new Broker("Bayram");
-            var broker1 = new Broker("Azat");
-            var othersubscriber = new AnyOtherSubscriber("Student");
+            var epamSec = new Share("EPAM", 47.15m, 500);
+            var luxSec = new Share("LXFT", 36.68m, 500);
+            var googlSec = new Share("GOOGL", 505.55m, 100);
+            var googSec = new Share("GOOG", 503.70m, 100);
+            var msftSec = new Share("MSFT", 45.88m, 50);
 
-            stock.Register(broker,list);
-            
-            stock.OnShareBought += broker.OnBought;
-            stock.OnShareSold += broker.OnSold;
-            stock.OnShareBought += broker1.OnBought;
-            stock.OnShareSold += broker1.OnSold;
-            stock.OnShareSold += othersubscriber.OnSold;
-            stock.OnShareBought += othersubscriber.OnBought;
-            stock.OnAppliedForShareSell += broker.OnApplyForSell;
+            IStockExchange stockExchange =
+                new StockExchange(new[] { epamSec, luxSec, googlSec, googSec, msftSec });
 
-            broker1.BuyShare(share,2,stock);
-            broker.ApplyForSell(share,3,stock);
+            var bayram = new Broker("Bayram");
+            var azat = new Broker("Azat");
+            var igor = new Broker("Igor Tkachenko");
 
+            var eventsLogger = new StockExhangeEventsLogger();
+            stockExchange.Sold += eventsLogger.OnSold;
+            stockExchange.Selling += eventsLogger.OnSelling;
 
+            stockExchange.Register(bayram);
+            stockExchange.Register(azat);
+            stockExchange.Register(igor);
 
-            //broker.SellShare(share1,3,stock);
-            
-            
+            bayram.Buy("GOOG", 1);
+            azat.Buy("MSFT", 10);
+            igor.Buy("EPAM", 15);
+
+            azat.RequestSelling("MSFT", 2);
+
+            stockExchange.UnRegister(bayram);
+            stockExchange.UnRegister(azat);
+            stockExchange.UnRegister(igor);
+
+            stockExchange.Sold -= eventsLogger.OnSold;
+            stockExchange.Selling -= eventsLogger.OnSelling;
+
             Console.ReadKey();
         }
     }

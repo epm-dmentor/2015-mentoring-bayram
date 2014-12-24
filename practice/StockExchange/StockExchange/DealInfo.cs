@@ -1,34 +1,20 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace StockExchange
 {
     public class DealInfo
     {
-        private readonly DateTime _dealDate;
-
-        public DealInfo(string sharename, double shareprice, int shareamount, DateTime dealDate)
-        {
-            this.ShareName = sharename;
-            this.SharePrice = shareprice;
-            this.ShareAmount = shareamount;
-            this._dealDate = dealDate;
-            
-        }
-
-
-        public string ShareName { get; private set; }
-
-        public double SharePrice { get; private set; }
-
+        public DateTime DealDate { get; private set; }
+        public string SecurityId { get; private set; }
+        public decimal SharePrice { get; private set; }
         public int ShareAmount { get; private set; }
 
-        public DateTime DealDate
+        public DealInfo(string securityId, decimal sharePrice, int shareAmount, DateTime dealDate)
         {
-            get { return this._dealDate; }
+            SecurityId = securityId;
+            SharePrice = sharePrice;
+            ShareAmount = shareAmount;
+            DealDate = dealDate;            
         }
     }
 }

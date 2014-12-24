@@ -1,82 +1,87 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Data;
 
 namespace StockExchange
 {
-    public class Broker:IBroker,IStockEventSubscriber
+    public class Broker : IBroker
     {
+        private readonly object _syncRequests = new object();
 
-        public string Name { get; private set; }
-        private readonly ILogger _logger;
-      
+        private IStockExchange _stockExchange;
+        private readonly IList<string> _requests = new List<string>();
+
+        public string Name { get; private set; }        
+
         public Broker(string name)
         {
-            this.Name = name;
-            this._logger=new Logger();
+            Name = name;
         }
 
-        #region Methods
-
-        /// <summary>
-        /// Method which invokes StockExchange's SellShare() method passing share and itself.
-        /// </summary>
-        /// <param name="share"></param>
-        /// <param name="amount"></param>
-        /// <param name="stockExchange"></param>
-
-        public void ApplyForSell(Share share, int amount, IStockExchange stockExchange)
-        {
-            stockExchange.ApplyForShareSell(share,amount,this);
-        }
-        
-  
-        public void BuyShare(Share share,int amount,IStockExchange stockExchange)
-        {
-            stockExchange.SellShare(share,amount, this); 
-        }
-        
-        /// <summary>
-        /// Method which is invoked by NotifyBought from StockExchange to update broker about bought share
-        /// </summary>
-        /// <param name="dealInfo"></param>
-        
-        public void OnBought(DealInfo dealInfo)
-        {
-            var message =
-                String.Format("Notification for broker {0} : Share {1} bought, amount is - {2} with price {3} on {4}",
-                    this.Name,
-                    dealInfo.ShareName, dealInfo.ShareAmount, dealInfo.SharePrice, dealInfo.DealDate);
-            _logger.WriteInfo(message);
-        }
-        
-        /// <summary>
-        /// Method which is invoked by NotifyAppliedForSell from StockExchange to update broker about application to sell share
-        /// </summary>
-        /// <param name="dealInfo"></param>
-        public void OnApplyForSell(DealInfo dealInfo)
-        {
-            var message =
-                String.Format(
-                    "Notification for broker {0} : Share {1} applied to be sold, amount is - {2} with price {3} on {4}",
-                    this.Name,
-                    dealInfo.ShareName, dealInfo.ShareAmount, dealInfo.SharePrice, dealInfo.DealDate);
-            _logger.WriteInfo(message);
-        }
 
         /// <summary>
         /// Method which is invoked by NotifySold from StockExchange to update broker about sold share
         /// </summary>
         /// <param name="dealInfo"></param>
-        
         public void OnSold(DealInfo dealInfo)
         {
-            var message =
-                String.Format("Notification for broker {0} : Share {1} sold, amount is - {2} with price {3} on {4}",
-                    this.Name,
-                    dealInfo.ShareName, dealInfo.ShareAmount, dealInfo.SharePrice, dealInfo.DealDate);
-            _logger.WriteInfo(message);
+            Console.WriteLine("Broker {0} reacted on selling a share {1}", Name, dealInfo.SecurityId);
         }
-        #endregion
 
-      
+
+        public void OnSelling(DealInfo dealInfo)
+        {
+            Console.WriteLine("Broker {0} reacted on a selling request of a share {1}", Name, dealInfo.SecurityId);
+            //react on selling request
+        }
+
+        public bool RequestSelling(string securityId, int amount)
+        {
+            if (_stockExchange == null)
+                throw new NoNullAllowedException("Stock exchange has not been settled");
+
+            var requestId = _stockExchange.RequestSelling(securityId, amount, this);
+
+            if (String.IsNullOrWhiteSpace(requestId))
+                return false;
+
+            lock (_syncRequests)
+            {
+                _requests.Add(requestId);
+            }
+
+            return true;
+        }
+
+        public void RequestFulfiled(string requestId)
+        {
+            lock (_syncRequests)
+            {
+                _requests.Remove(requestId);
+            }
+        }
+
+        public bool Buy(string securityId, int amount)
+        {
+            if (_stockExchange == null)
+                throw new NoNullAllowedException("Stock exchange has not been settled");
+
+            return _stockExchange.Buy(securityId, amount, this);
+        }
+
+
+        public void Settle(IStockExchange stockExchange)
+        {
+            if (_stockExchange != null)
+                throw new ArgumentException("Stock exchange has been already settled");
+
+            _stockExchange = stockExchange;
+        }
+
+        public void UnSettle(IStockExchange stockExchange)
+        {
+            _stockExchange = null;
+        }
+
     }
 }

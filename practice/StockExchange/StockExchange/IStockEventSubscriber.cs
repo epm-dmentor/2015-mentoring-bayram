@@ -2,7 +2,7 @@
 {
     public interface IStockEventSubscriber
     {
-        void OnBought(DealInfo dealInfo);
+        void OnSelling(DealInfo dealInfo);
         void OnSold(DealInfo dealInfo); 
     }
 }
