@@ -20,7 +20,7 @@ namespace StockExchange
 
 
         /// <summary>
-        /// Method which is invoked by NotifySold from StockExchange to update broker about sold share
+        /// Method which is invoked by from StockExchange to update broker about sold share
         /// </summary>
         /// <param name="dealInfo"></param>
         public void OnSold(DealInfo dealInfo)
@@ -28,13 +28,23 @@ namespace StockExchange
             Console.WriteLine("Broker {0} reacted on selling a share {1}", Name, dealInfo.SecurityId);
         }
 
-
+        /// <summary>
+        /// Method which is invoked by from StockExchange to update broker about Sell Request 
+        /// </summary>
+        /// <param name="dealInfo"></param>
+        
         public void OnSelling(DealInfo dealInfo)
         {
             Console.WriteLine("Broker {0} reacted on a selling request of a share {1}", Name, dealInfo.SecurityId);
-            //react on selling request
+            
         }
 
+        /// <summary>
+        /// Invokes RequestSelling method in stockexchange to get requestId
+        /// </summary>
+        /// <param name="securityId"></param>
+        /// <param name="amount"></param>
+        /// <returns></returns>
         public bool RequestSelling(string securityId, int amount)
         {
             if (_stockExchange == null)
@@ -53,14 +63,21 @@ namespace StockExchange
             return true;
         }
 
+
         public void RequestFulfiled(string requestId)
         {
             lock (_syncRequests)
             {
+
                 _requests.Remove(requestId);
             }
         }
-
+        /// <summary>
+        /// Invokes Buy method in stockexchange
+        /// </summary>
+        /// <param name="securityId"></param>
+        /// <param name="amount"></param>
+        /// <returns></returns>
         public bool Buy(string securityId, int amount)
         {
             if (_stockExchange == null)
@@ -69,15 +86,21 @@ namespace StockExchange
             return _stockExchange.Buy(securityId, amount, this);
         }
 
-
+        /// <summary>
+        /// Sets stockexchange for broker
+        /// </summary>
+        /// <param name="stockExchange"></param>
         public void Settle(IStockExchange stockExchange)
         {
             if (_stockExchange != null)
                 throw new ArgumentException("Stock exchange has been already settled");
-
             _stockExchange = stockExchange;
         }
 
+        /// <summary>
+        /// Sets stockexchange to null for broker
+        /// </summary>
+        /// <param name="stockExchange"></param>
         public void UnSettle(IStockExchange stockExchange)
         {
             _stockExchange = null;

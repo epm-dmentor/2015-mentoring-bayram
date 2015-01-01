@@ -41,6 +41,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="StockExceptions.cs" />
     <Compile Include="StockExhangeEventsLogger.cs" />
     <Compile Include="Broker.cs" />
     <Compile Include="BrokerAccount.cs" />

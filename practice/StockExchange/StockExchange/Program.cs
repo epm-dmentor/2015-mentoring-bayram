@@ -20,7 +20,10 @@ namespace StockExchange
             var igor = new Broker("Igor Tkachenko");
 
             var eventsLogger = new StockExhangeEventsLogger();
+            
             stockExchange.Sold += eventsLogger.OnSold;
+            stockExchange.Sold += bayram.OnSold;
+            stockExchange.Sold += igor.OnSold;
             stockExchange.Selling += eventsLogger.OnSelling;
 
             stockExchange.Register(bayram);

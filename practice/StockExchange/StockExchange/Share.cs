@@ -1,5 +1,4 @@
-﻿
-namespace StockExchange
+﻿namespace StockExchange
 {
     public class Share
     {
