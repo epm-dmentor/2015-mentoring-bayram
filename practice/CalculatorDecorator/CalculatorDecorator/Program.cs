@@ -7,7 +7,16 @@ namespace CalculatorDecorator
         static void Main(string[] args)
         {
 
-            var result = new Add(new Multiply(12, 3), new Plus(2,new Divide(12,3))).GetResult();
+            var result = 
+                new Add(
+                    new Multiply(
+                        new Const(12),
+                        new Const(3)), 
+                        new Plus(
+                            new Const(2),
+                            new Divide(
+                                new Const(12),
+                                new Const(3)))).GetResult();
             
             Console.WriteLine(result);
             
