@@ -5,16 +5,10 @@
         private readonly double _x;
         private readonly double _y;
 
-        public Multiply(double x, double y)
+        public Multiply(IOperation operation, IOperation operation2)
         {
-            _x = x;
-            _y = y;
-        }
-
-        public Multiply(double x, IOperation operation)
-        {
-            _x = x;
-            _y = operation.GetResult();
+            _x = operation.GetResult();
+            _y = operation2.GetResult();
         }
         
         public double GetResult()

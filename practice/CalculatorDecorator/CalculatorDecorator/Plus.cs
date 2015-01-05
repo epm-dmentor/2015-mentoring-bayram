@@ -5,18 +5,12 @@
         private readonly double _x;
         private readonly double _y;
 
-        public Plus(double x, double y)
+        public Plus(IOperation operation, IOperation operation2)
         {
-            _x = x;
-            _y = y;
+            _x = operation.GetResult();
+            _y = operation2.GetResult();
         }
-
-        public Plus(double x, IOperation operation)
-        {
-            _x = x;
-            _y = operation.GetResult();
-        }
-
+        
         public double GetResult()
         {
             return _x + _y;

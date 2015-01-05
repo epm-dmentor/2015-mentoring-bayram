@@ -29,20 +29,6 @@
             this._y = operation2.GetResult();
         }
 
-        public Add(double x, IOperation operation2)
-            : base(x, operation2)
-        {
-            this._x = x;
-            this._y = operation2.GetResult();
-        }
-
-        public Add(IOperation operation,double y)
-            : base(operation,y)
-        {
-            this._x = operation.GetResult();
-            this._y = y;
-        }
-
         public override double GetResult()
         {
             return _x + _y;
