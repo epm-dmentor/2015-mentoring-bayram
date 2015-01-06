@@ -1,12 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Threading;
-using System.Threading.Tasks;
 
-namespace CalculatorDecorator
+namespace Epam.NetMentoring.Calculator
 {
+    //IT: Move to another project
     public class CalculationService
     {
         private Dictionary<Tuple<decimal,decimal>,decimal> _cache;
