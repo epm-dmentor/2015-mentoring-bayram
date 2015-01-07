@@ -2,18 +2,20 @@
 {
     public class Plus:IOperation
     {
-        private readonly double _x;
-        private readonly double _y;
+        private readonly IOperation _leftOperand;
+        private readonly IOperation _rightOperand;
 
-        public Plus(IOperation operation, IOperation operation2)
+        public Plus(IOperation leftOperand, IOperation rightOperand)
         {
-            _x = operation.GetResult();
-            _y = operation2.GetResult();
+            _leftOperand = leftOperand;
+            _rightOperand = rightOperand;
         }
         
         public double GetResult()
         {
-            return _x + _y;
+            var x = _leftOperand.GetResult();
+            var y = _rightOperand.GetResult();
+            return x+y;
         }
     }
 }

@@ -1,10 +1,7 @@
-﻿
-namespace Epam.NetMentoring.Calculator
+﻿namespace Epam.NetMentoring.Calculator
 {
-
     public class Add : IOperation
     {
-        //IT: readonly
         private readonly IOperation _leftOperand;
         private readonly IOperation _rightOperand;
 

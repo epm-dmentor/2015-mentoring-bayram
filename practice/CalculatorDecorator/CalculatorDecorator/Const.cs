@@ -1,9 +1,7 @@
-﻿
-namespace Epam.NetMentoring.Calculator
+﻿namespace Epam.NetMentoring.Calculator
 {
     public class Const:IOperation
     {
-        //IT: readonly 
         private readonly double _x;
 
         public Const(double x)

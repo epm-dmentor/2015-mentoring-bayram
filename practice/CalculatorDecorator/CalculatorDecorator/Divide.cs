@@ -4,20 +4,20 @@ namespace Epam.NetMentoring.Calculator
 {
     public class Divide:IOperation
     {
-        //IT: it's better to save operand instead
-        private readonly double _x;
-        private readonly double _y;
+        private readonly IOperation _leftOperand;
+        private readonly IOperation _rightOperand;
 
-        public Divide(IOperation operation, IOperation operation2)
+        public Divide(IOperation leftOperand, IOperation rightOperand)
         {
-            //IT: move calc to getresult
-            _x = operation.GetResult();
-            _y = operation2.GetResult();
+            _leftOperand = leftOperand;
+            _rightOperand = rightOperand;
         }
 
         public double GetResult()
         {
-            if (_y != 0) return _x / _y;
+            var x = _leftOperand.GetResult();
+            var y = _rightOperand.GetResult();
+            if (y != 0) return x / y;
             throw  new DivideByZeroException();
         }
     }

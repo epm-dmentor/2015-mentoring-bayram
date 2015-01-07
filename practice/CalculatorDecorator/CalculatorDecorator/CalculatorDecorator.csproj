@@ -41,9 +41,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="CalculationService.cs" />
+    <Compile Include="Add.cs" />
     <Compile Include="Const.cs" />
-    <Compile Include="Decorator.cs" />
     <Compile Include="Divide.cs" />
     <Compile Include="IOperation.cs" />
     <Compile Include="Minus.cs" />

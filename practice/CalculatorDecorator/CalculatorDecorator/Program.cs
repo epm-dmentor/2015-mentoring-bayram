@@ -20,15 +20,6 @@ namespace Epam.NetMentoring.Calculator
 
             
             Console.WriteLine(result);
-
-
-            var calc = new CalculationService();
-            var res1 = calc.Calculate(23, 23);
-            var res2 = calc.Calculate(45, 45);
-            var res3 = calc.Calculate(23, 23);
-
-            Console.WriteLine("Result one - {0}, Result two {1}, Result from cache {2}",res1,res2,res3);
-
             Console.ReadKey();
         }
     }
