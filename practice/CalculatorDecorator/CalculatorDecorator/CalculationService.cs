@@ -15,7 +15,7 @@ namespace CalculatorDecorator
         {
             _cache = new Dictionary<Tuple<decimal, decimal>, decimal>();
         }
-
+        
         protected decimal CheckCache(decimal a, decimal b)
         {
             var inputParameters = new Tuple<decimal, decimal>(a,b);

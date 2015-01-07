@@ -23,7 +23,6 @@ namespace CalculatorDecorator
 
 
             var calc = new CalculationService();
-
             var res1 = calc.Calculate(23, 23);
             var res2 = calc.Calculate(45, 45);
             var res3 = calc.Calculate(23, 23);
