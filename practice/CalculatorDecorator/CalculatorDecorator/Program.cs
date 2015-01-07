@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace CalculatorDecorator
+namespace Epam.NetMentoring.Calculator
 {
     class Program
     {

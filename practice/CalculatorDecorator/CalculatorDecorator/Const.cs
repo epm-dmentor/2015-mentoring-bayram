@@ -1,12 +1,14 @@
-﻿namespace CalculatorDecorator
+﻿
+namespace Epam.NetMentoring.Calculator
 {
     public class Const:IOperation
     {
-        private double _x;
+        //IT: readonly 
+        private readonly double _x;
 
         public Const(double x)
         {
-            this._x = x;
+            _x = x;
         }
 
         public double GetResult()

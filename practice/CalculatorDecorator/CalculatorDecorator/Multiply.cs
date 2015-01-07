@@ -1,4 +1,4 @@
-﻿namespace CalculatorDecorator
+﻿namespace Epam.NetMentoring.Calculator
 {
     public class Multiply:IOperation
     {
