@@ -9,22 +9,13 @@ namespace Epam.NetMentoring.CalculationServiceTest
         [TestMethod]
         public void TestCalcWithCache()
         {
-            var calcWithCache = new CalcWithCache();
-            var calcServicewithCache = new CalcService(calcWithCache);
+            var calc = new CalcNoCache();
+            var calcWithCache = new CalcWithCache(calc);
             const decimal expected = 8203275;
-            var actual = calcServicewithCache.Calculate(45, 45);
+            var actual = calcWithCache.Calculate(new CalcParameters(45,45,new AdditionalCalcParams(0)));
             Assert.AreEqual(expected,actual);
 
         }
-        [TestMethod]
-        public void TestCalcNoCache()
-        {
-            var calcNoCache = new CalcNoCache();
-            var calcServiceNoCache = new CalcService(calcNoCache);
-            const decimal expected = 8203275;
-            var actual = calcServiceNoCache.Calculate(45, 45);
-            Assert.AreEqual(expected, actual);
-
-        }
+        
     }
 }

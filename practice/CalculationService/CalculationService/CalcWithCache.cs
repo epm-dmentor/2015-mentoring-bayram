@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 
 namespace Epam.NetMentoring.CalculationService
 {
@@ -10,23 +11,22 @@ namespace Epam.NetMentoring.CalculationService
 
     public class CalcWithCache:IService
     {
-        private Dictionary<int, CalcParameters> _cache;
-
-        public CalcWithCache()
+        private readonly Dictionary<ICalcParameters, decimal> _cache = new Dictionary<ICalcParameters, decimal>();
+        private readonly IService _service;
+        
+        public CalcWithCache(IService service)
         {
-            _cache = new Dictionary<int, CalcParameters>();
+            _service = service;
         }
 
-        public decimal Calculate(decimal firstParam, decimal secondParam)
+        public decimal Calculate(ICalcParameters calcParameters)
         {
-            var calcParameters = new CalcParameters(firstParam, secondParam);
-            var key = calcParameters.GetHashCode();
+           
+            if (_cache.Keys.Contains(calcParameters)) return _cache[calcParameters];
+
+            var result = _service.Calculate(calcParameters);
             
-            if (_cache.ContainsKey(key)) return _cache[key].Result;
-            
-            var result = firstParam * firstParam + 2 * firstParam * secondParam * secondParam * secondParam;
-            calcParameters.Result = result;
-            _cache.Add(key, calcParameters);
+            _cache.Add(calcParameters,result);
             
             return result;
         }

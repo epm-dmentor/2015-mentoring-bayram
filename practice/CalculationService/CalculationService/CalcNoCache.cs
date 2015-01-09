@@ -7,9 +7,11 @@
     /// 
     public class CalcNoCache:IService
     {
-        public decimal Calculate(decimal firstParam, decimal secondParam)
+        public decimal Calculate(ICalcParameters calcParameters)
         {
-            return firstParam * firstParam + 2 * firstParam * secondParam * secondParam * secondParam;
+            return calcParameters.FirstParameter*calcParameters.FirstParameter + 2*calcParameters.FirstParameter
+                   *calcParameters.SecondParameter*calcParameters.SecondParameter*calcParameters.SecondParameter
+                   +calcParameters.AdditionalParameter;
         }
     }
 }
