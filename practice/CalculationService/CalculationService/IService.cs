@@ -2,6 +2,6 @@
 {
     public interface IService
     {
-        decimal Calculate(ICalcParameters calcParams);
+        decimal Calculate(decimal firstParam, decimal secondParam);
     }
 }

@@ -1,9 +1,7 @@
 ﻿using System.Collections.Generic;
-using System.Linq;
 
 namespace Epam.NetMentoring.CalculationService
 {
-
     /// <summary>
     /// Concrete Implementation of IService interface;
     /// Calculation with cache option is implemented below
@@ -11,7 +9,7 @@ namespace Epam.NetMentoring.CalculationService
 
     public class CalcWithCache:IService
     {
-        private readonly Dictionary<ICalcParameters, decimal> _cache = new Dictionary<ICalcParameters, decimal>();
+        private readonly Dictionary<CalcParameters, decimal> _cache = new Dictionary<CalcParameters, decimal>();
         private readonly IService _service;
         
         public CalcWithCache(IService service)
@@ -19,12 +17,13 @@ namespace Epam.NetMentoring.CalculationService
             _service = service;
         }
 
-        public decimal Calculate(ICalcParameters calcParameters)
+        public decimal Calculate(decimal firstParam,decimal secondParam)
         {
-           
-            if (_cache.Keys.Contains(calcParameters)) return _cache[calcParameters];
+            var calcParameters = new CalcParameters(firstParam, secondParam);
+            
+            if (_cache.ContainsKey(calcParameters)) return _cache[calcParameters];
 
-            var result = _service.Calculate(calcParameters);
+            var result = _service.Calculate(firstParam,secondParam);
             
             _cache.Add(calcParameters,result);
             

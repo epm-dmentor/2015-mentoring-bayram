@@ -5,20 +5,21 @@
     /// custom GetHashCode() method was overriden here to assign hashcode as a key in cache.
     /// </summary>
     
-    public class CalcParameters:ICalcParameters
+    public class CalcParameters
     {
         private readonly decimal _firstParameter;
         private readonly decimal _secondParameter;
         private readonly decimal _additionalParameter;
       
-        public CalcParameters(decimal firstParam, decimal secondParam,ICalcParameters additionalParameters)
+        public CalcParameters(decimal firstParam, decimal secondParam)
         
         {
             _firstParameter = firstParam;
             _secondParameter = secondParam;
-            _additionalParameter = additionalParameters.AdditionalParameter;
+            //_additionalParameter = additionalParameters.AdditionalParameter;
             
         }
+
 
         public decimal FirstParameter
         {
@@ -41,7 +42,7 @@
                   ^_additionalParameter.GetHashCode();
         }
 
-        public bool Equals(ICalcParameters calcParameters)
+        public bool Equals(CalcParameters calcParameters)
         {
             if (calcParameters == null)
                 return false;
@@ -52,10 +53,10 @@
 
         public override bool Equals(object obj)
         {
-            if (!(obj is ICalcParameters))
+            if (!(obj is CalcParameters))
                 return false;
 
-            return Equals((ICalcParameters)obj);
+            return Equals((CalcParameters)obj);
         }
 
  

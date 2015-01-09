@@ -41,11 +41,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="AdditionalCalcParams.cs" />
     <Compile Include="CalcNoCache.cs" />
     <Compile Include="CalcParameters.cs" />
     <Compile Include="CalcWithCache.cs" />
-    <Compile Include="ICalcParameters.cs" />
     <Compile Include="IService.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
