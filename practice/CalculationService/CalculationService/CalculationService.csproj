@@ -41,11 +41,11 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="AdditionalCalc.cs" />
-    <Compile Include="CalcNoCache.cs" />
-    <Compile Include="CalcParameters.cs" />
-    <Compile Include="CalcWithCache.cs" />
-    <Compile Include="IService.cs" />
+    <Compile Include="CalculationServiceWithCorrection.cs" />
+    <Compile Include="CalculationService.cs" />
+    <Compile Include="CalculationParameters.cs" />
+    <Compile Include="CachedCalculationService.cs" />
+    <Compile Include="ICalculationService.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

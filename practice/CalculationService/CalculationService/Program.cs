@@ -6,22 +6,17 @@ namespace Epam.NetMentoring.CalculationService
     {
         static void Main(string[] args)
         {
-            var calcNoCache = new CalcNoCache();
-            var calcNoCachewithout = new CalcNoCache();
+            var calcService = new CalculationService();
             
-            var additionalcalc = new AdditionalCalc(10, calcNoCache);
-            var res = additionalcalc.Calculate(45, 45);
-
-            var calcWithCache = new CalcWithCache(calcNoCache);
-            var calcWithCache1 = new CalcWithCache(calcNoCachewithout);
-            var result = calcWithCache.Calculate(45, 45);
-            var result1 = calcWithCache.Calculate(45, 45);
-            var result2 = calcWithCache1.Calculate(45, 45);
-            var result3 = calcWithCache1.Calculate(45, 45);
+            //для того чтобы быстрее возвращал результат для нашего 
+            //привиредливого клиента мы будем использовать CachedService ). Вроде по паттерну подходит.
+            //к сожалению больше ничего не смог придумать для
+            //Как наиболее оптимально сложить конструктор чтоб для нашего 
+            //привередливого клиента (с корекцией) давать результат как можно быстрее?
             
-            
+            var correctionCalc = new CalculationServiceWithCorrection(10, new CachedCalculationService(calcService));
+            var result = correctionCalc.Calculate(45, 45);
             Console.WriteLine(result);
-            Console.WriteLine(result2);
             Console.ReadKey();
 
         }
