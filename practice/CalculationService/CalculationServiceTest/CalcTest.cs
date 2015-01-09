@@ -1,5 +1,4 @@
-﻿using Epam.NetMentoring.CalculationService;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace Epam.NetMentoring.CalculationServiceTest
 {

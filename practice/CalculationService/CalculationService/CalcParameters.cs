@@ -9,14 +9,12 @@
     {
         private readonly decimal _firstParameter;
         private readonly decimal _secondParameter;
-        private readonly decimal _additionalParameter;
-      
+        
         public CalcParameters(decimal firstParam, decimal secondParam)
         
         {
             _firstParameter = firstParam;
             _secondParameter = secondParam;
-            //_additionalParameter = additionalParameters.AdditionalParameter;
             
         }
 
@@ -31,15 +29,9 @@
             get { return _secondParameter; }
         }
 
-        public decimal AdditionalParameter
-        {
-            get { return _additionalParameter; }
-        }
-
         public override int GetHashCode()
         {
-            return _firstParameter.GetHashCode() ^ _secondParameter.GetHashCode() 
-                  ^_additionalParameter.GetHashCode();
+            return _firstParameter.GetHashCode() ^ _secondParameter.GetHashCode();
         }
 
         public bool Equals(CalcParameters calcParameters)
@@ -47,20 +39,17 @@
             if (calcParameters == null)
                 return false;
             return (_firstParameter == calcParameters.FirstParameter &&
-                    _secondParameter == calcParameters.SecondParameter && 
-                    _additionalParameter==calcParameters.AdditionalParameter);
+                    _secondParameter == calcParameters.SecondParameter);
         }
 
         public override bool Equals(object obj)
         {
-            if (!(obj is CalcParameters))
-                return false;
+            var param = obj as CalcParameters;
 
+            if (param == null) return false;
+            
             return Equals((CalcParameters)obj);
         }
 
- 
-
-       
     }
 }
