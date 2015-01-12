@@ -44,6 +44,8 @@
     <Compile Include="BarclaysFilter.cs" />
     <Compile Include="BOFAFilter.cs" />
     <Compile Include="ConnacordFilter.cs" />
+    <Compile Include="FilterFactory.cs" />
+    <Compile Include="IFilterFactory.cs" />
     <Compile Include="Trade.cs" />
     <Compile Include="IFilter.cs" />
     <Compile Include="ITrade.cs" />
