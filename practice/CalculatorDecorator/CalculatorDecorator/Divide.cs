@@ -15,10 +15,15 @@ namespace Epam.NetMentoring.Calculator
 
         public double GetResult()
         {
-            var x = _leftOperand.GetResult();
+            
             var y = _rightOperand.GetResult();
-            if (y != 0) return x / y;
-            throw  new DivideByZeroException();
+
+            if (y == 0) 
+                throw new DivideByZeroException();
+
+            var x = _leftOperand.GetResult();
+            
+            return x / y;            
         }
     }
 }
