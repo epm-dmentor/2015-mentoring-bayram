@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 
 namespace Epam.NetMentoring.RetailEquity
 {
@@ -6,12 +7,14 @@ namespace Epam.NetMentoring.RetailEquity
     {
         static void Main(string[] args)
         {
-            var factory = new BankFactory();
-            
-            var bofaTrade = factory.FilterTrade("Option", "SgpOption", 71);
-            var connacordTrade = factory.FilterTrade("Future", "LdnFuture", 30);
-            var barclaysTrade = factory.FilterTrade("Option", "NyOption", 52);
+            var trades = new List<ITrade> {new Trade("Option", "NyOption", 52), 
+                                           new Trade("Future","LdnFuture",31),
+                                           new Trade("Option","SgpOption",72)};
 
+            var barclaysTrades = new BarclaysFilter().Match(trades);
+            var bofaTrades = new BOFAFilter().Match(trades);
+            var connacordTrades = new ConnacordFilter().Match(trades);
+            
             Console.ReadKey();
         }
     }

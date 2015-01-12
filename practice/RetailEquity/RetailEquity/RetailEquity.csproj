@@ -41,10 +41,11 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="BankFactory.cs" />
-    <Compile Include="BarclaysTrade.cs" />
-    <Compile Include="BOFATrade.cs" />
-    <Compile Include="ConnacordTrade.cs" />
+    <Compile Include="BarclaysFilter.cs" />
+    <Compile Include="BOFAFilter.cs" />
+    <Compile Include="ConnacordFilter.cs" />
+    <Compile Include="Trade.cs" />
+    <Compile Include="IFilter.cs" />
     <Compile Include="ITrade.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
