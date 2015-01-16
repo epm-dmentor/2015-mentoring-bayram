@@ -7,7 +7,7 @@ namespace Epam.NetMentoring.RetailEquity
     {
         static void Main(string[] args)
         {
-            var trades = new List<ITrade> {new Trade("Option", "NyOption", 52), 
+            var trades = new List<Trade> {new Trade("Option", "NyOption", 52), 
                                            new Trade("Future","LdnFuture",31),
                                            new Trade("Option","SgpOption",72)};
             var factory = new FilterFactory();

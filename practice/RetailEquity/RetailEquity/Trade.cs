@@ -1,6 +1,6 @@
 ﻿namespace Epam.NetMentoring.RetailEquity
 {
-    public class Trade:ITrade
+    public class Trade
     {
        private readonly string _type;
         private readonly string _subType;

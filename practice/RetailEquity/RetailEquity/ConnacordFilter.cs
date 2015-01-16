@@ -5,9 +5,13 @@ namespace Epam.NetMentoring.RetailEquity
 {
     public class ConnacordFilter:IFilter
     {
-        public IEnumerable<ITrade> Match(List<ITrade> trades)
+        private const string TradeType="Future";
+        private const int MinTreshold = 10;
+        private const int MaxTreshold = 40;
+
+        public IEnumerable<Trade> Match(IEnumerable<Trade> trades)
         {
-            return trades.Where(x => x.Type.Equals("Future") && x.Amount > 10 && x.Amount<40).ToList();
+            return trades.Where(x => x.Type.Equals(TradeType) && x.Amount > MinTreshold && x.Amount<MaxTreshold).ToList();
         }
     }
 }
