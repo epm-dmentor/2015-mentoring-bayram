@@ -6,43 +6,44 @@ namespace Epam.NetMentoring.FeedProcessor
 {
     public class DeltaOneFeedProcessor:IFeedProcessor
     {
-        private List<IFeedItem> _feedItems;
-
-        public void ProcessFeedItems(List<IFeedItem> feeditems)
+        public void ProcessFeedItems(IEnumerable<FeedModel> feeditems)
         {
-
-            _feedItems = feeditems;
-
-            for (var i = 0; i < _feedItems.Count / 5 + 1; i++)
+            var feedModels = feeditems as IList<FeedModel> ?? feeditems.ToList();
+            foreach (var item in feedModels)
             {
-                var fiveitems = _feedItems.Skip(i * 5).Take(5);
-                foreach (var item in fiveitems)
-                {
-                    Validate(item);
-                    Save(Match(item));
-                }
+                Validate(item);
+                Save(Match(item));
             }
-
         }
 
-        public void Validate(IFeedItem feeditem)
+        protected virtual void Validate(FeedModel feeditem)
         {
+            var validationErrors = new List<ValidationError>();
+            
             if (feeditem.CounterpartyId == 0)
             {
-                throw new InvalidCounterpartyException("Counterparty should not be 0");
+               validationErrors.Add(new ValidationError{ErrorMessage = "CounterpartyId must not be 0"});
+            }
+            if (feeditem.PrincipalId == 0)
+            {
+                validationErrors.Add(new ValidationError { ErrorMessage = "PrincipalId must not be 0" });
             }
 
-            Console.WriteLine("Validation for "+ feeditem.CounterpartyId);
+            if (validationErrors.Count > 0)
+
+                throw new InvalidCounterpartyException("Please check validation errors in log...");
+
         }
 
-        public string Match(IFeedItem feeditem)
+        protected virtual FeedModel Match(FeedModel feeditem)
         {
-            return feeditem.CounterpartyId + feeditem.PrincipalId.ToString();
+            feeditem.CounterpartyId = feeditem.CounterpartyId + feeditem.PrincipalId;
+            return feeditem;
         }
 
-        public void Save(string matchedaccount)
+        protected virtual void Save(FeedModel matchedaccount)
         {
-            Console.WriteLine("Saved account {0}", matchedaccount);
+            Console.WriteLine("Saved account {0}", matchedaccount.CounterpartyId);
         }
     }
 }

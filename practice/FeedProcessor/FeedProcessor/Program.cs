@@ -8,17 +8,18 @@ namespace Epam.NetMentoring.FeedProcessor
         static void Main(string[] args)
         {
 
-            var feedItems = new List<IFeedItem>
+            var feedItems = new List<FeedModel>
             {
-                new EmFeed(1212, "asdasd", 2323, 5656, new DateTime(2008, 3, 1, 7, 0, 0), 45, 45, 56, 45454),
-                new EmFeed(1212, "asdasd", 2323, 5656, new DateTime(2008, 3, 1, 7, 0, 0), 45, 45, 56, 45454),
-                new EmFeed(1212, "asdasd", 2323, 5656, new DateTime(2008, 3, 1, 7, 0, 0), 45, 45, 56, 45454),
-                new EmFeed(1212, "asdasd", 2323, 5656, new DateTime(2008, 3, 1, 7, 0, 0), 45, 45, 56, 45454),
-                new EmFeed(1212, "asdasd", 2323, 5656, new DateTime(2008, 3, 1, 7, 0, 0),45, 45, 56, 45454),
-                new EmFeed(1212, "asdasd", 2323, 5656, new DateTime(2008, 3, 1, 7, 0, 0),45, 45, 56, 45454)
+                new EmFeed{CounterpartyId = 1212, SourceAccountId = "asdasd", AssetGmv = 2323,AssetValue = 5656, ValuationDate = new DateTime(2008, 3, 1, 7, 0, 0), CurrentPrice = 45,PrincipalId = 45, StagingId = 56, SourceTradeRef = "MARS"},
+                new EmFeed{CounterpartyId = 1212, SourceAccountId = "asdasd", AssetGmv = 2323,AssetValue = 5656, ValuationDate = new DateTime(2008, 3, 1, 7, 0, 0), CurrentPrice = 45,PrincipalId = 45, StagingId = 56, SourceTradeRef = "MARS"},
+                new EmFeed{CounterpartyId = 1212, SourceAccountId = "asdasd", AssetGmv = 2323,AssetValue = 5656, ValuationDate = new DateTime(2008, 3, 1, 7, 0, 0), CurrentPrice = 45,PrincipalId = 45, StagingId = 56, SourceTradeRef = "MARS"},
+                new EmFeed{CounterpartyId = 1212, SourceAccountId = "asdasd", AssetGmv = 2323,AssetValue = 5656, ValuationDate = new DateTime(2008, 3, 1, 7, 0, 0), CurrentPrice = 45,PrincipalId = 45, StagingId = 56, SourceTradeRef = "MARS"},
+                new EmFeed{CounterpartyId = 1212, SourceAccountId = "asdasd", AssetGmv = 2323,AssetValue = 5656, ValuationDate = new DateTime(2008, 3, 1, 7, 0, 0), CurrentPrice = 45,PrincipalId = 45, StagingId = 56, SourceTradeRef = "MARS"},
+                 
             };
+
             
-            
+
             var factory = new FeedFactory();
             
             factory.CreateFeedProcessor("EmFeed").ProcessFeedItems(feedItems);

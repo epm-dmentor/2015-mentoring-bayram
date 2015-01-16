@@ -47,11 +47,12 @@
     <Compile Include="EmFeedProcessor.cs" />
     <Compile Include="FeedExceptions.cs" />
     <Compile Include="FeedFactory.cs" />
+    <Compile Include="FeedModel.cs" />
     <Compile Include="IFeedFactory.cs" />
-    <Compile Include="IFeedItem.cs" />
     <Compile Include="IFeedProcessor.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="ValidationError.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
