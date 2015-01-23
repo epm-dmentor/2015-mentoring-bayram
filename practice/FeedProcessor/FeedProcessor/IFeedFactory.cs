@@ -2,6 +2,6 @@
 {
     public interface IFeedManagerFactory
     {
-        IFeedProcessor CreateFeedProcessor(string feedType);
+        FeedManager CreateFeedManager(string feedType);
     }
 }

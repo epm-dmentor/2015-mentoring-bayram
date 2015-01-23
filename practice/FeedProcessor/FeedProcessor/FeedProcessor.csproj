@@ -42,12 +42,12 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="DeltaOne.cs" />
-    <Compile Include="DeltaOneFeedManager.cs" />
+    <Compile Include="FeedManager.cs" />
     <Compile Include="DeltaOneFeedProcessor.cs" />
     <Compile Include="EmFeed.cs" />
     <Compile Include="EmFeedProcessor.cs" />
     <Compile Include="FeedExceptions.cs" />
-    <Compile Include="FeedFactory.cs" />
+    <Compile Include="FeedManagerFactory.cs" />
     <Compile Include="FeedModel.cs" />
     <Compile Include="IFeedFactory.cs" />
     <Compile Include="IFeedProcessor.cs" />
