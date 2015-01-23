@@ -42,6 +42,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="DeltaOne.cs" />
+    <Compile Include="DeltaOneFeedManager.cs" />
     <Compile Include="DeltaOneFeedProcessor.cs" />
     <Compile Include="EmFeed.cs" />
     <Compile Include="EmFeedProcessor.cs" />

@@ -4,11 +4,12 @@ using System.Linq;
 
 namespace Epam.NetMentoring.FeedProcessor
 {
+    //IT: the same commenst as for DeltaOneProcessor
     public class EmFeedProcessor:IFeedProcessor
     {
-        public void ProcessFeedItems(IEnumerable<FeedModel> feeditems)
+        public void ProcessFeedItems(IEnumerable<FeedItem> feeditems)
         {
-            var feedModels = feeditems as IList<FeedModel> ?? feeditems.ToList();
+            var feedModels = feeditems as IList<FeedItem> ?? feeditems.ToList();
             foreach (var item in feedModels)
             {
                 Validate(item);
@@ -16,7 +17,7 @@ namespace Epam.NetMentoring.FeedProcessor
             }
         }
 
-        protected virtual void Validate(FeedModel feeditem)
+        protected virtual void Validate(FeedItem feeditem)
         {
             var validationErrors = new List<ValidationError>();
 
@@ -35,13 +36,13 @@ namespace Epam.NetMentoring.FeedProcessor
 
         }
 
-        protected virtual FeedModel Match(FeedModel feeditem)
+        protected virtual FeedItem Match(FeedItem feeditem)
         {
             feeditem.SourceAccountId = feeditem.SourceAccountId + "EM_FEED";
             return feeditem;
         }
 
-        protected virtual void Save(FeedModel matchedaccount)
+        protected virtual void Save(FeedItem matchedaccount)
         {
             Console.WriteLine("Saved account {0}", matchedaccount.CounterpartyId);
         }

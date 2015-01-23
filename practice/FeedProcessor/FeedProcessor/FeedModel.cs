@@ -2,7 +2,7 @@
 
 namespace Epam.NetMentoring.FeedProcessor
 {
-    public class FeedModel
+    public class FeedItem
     {
         public decimal StagingId { get; set; }
         public string SourceTradeRef { get; set; }

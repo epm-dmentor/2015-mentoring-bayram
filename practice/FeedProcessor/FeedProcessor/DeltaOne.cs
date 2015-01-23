@@ -2,7 +2,7 @@
 
 namespace Epam.NetMentoring.FeedProcessor
 {
-    public class DeltaOne:FeedModel
+    public class DeltaOne:FeedItem
     {
        
        public decimal TradeIdentifier { get; set; }

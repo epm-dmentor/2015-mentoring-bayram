@@ -1,22 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 
 namespace Epam.NetMentoring.FeedProcessor
 {
     public class DeltaOneFeedProcessor:IFeedProcessor
     {
-        public void ProcessFeedItems(IEnumerable<FeedModel> feeditems)
-        {
-            var feedModels = feeditems as IList<FeedModel> ?? feeditems.ToList();
-            foreach (var item in feedModels)
-            {
-                Validate(item);
-                Save(Match(item));
-            }
-        }
-
-        protected virtual void Validate(FeedModel feeditem)
+        public virtual IEnumerable<ValidationError> Validate(FeedItem feeditem)
         {
             var validationErrors = new List<ValidationError>();
             
@@ -35,14 +24,15 @@ namespace Epam.NetMentoring.FeedProcessor
 
         }
 
-        protected virtual FeedModel Match(FeedModel feeditem)
+        public virtual FeedItem Match(FeedItem feeditem)
         {
             feeditem.CounterpartyId = feeditem.CounterpartyId + feeditem.PrincipalId;
             return feeditem;
         }
 
-        protected virtual void Save(FeedModel matchedaccount)
+        public virtual void Save(FeedItem matchedaccount)
         {
+            //IT: must be more evident comment: Saved Delta1 feed (not account)
             Console.WriteLine("Saved account {0}", matchedaccount.CounterpartyId);
         }
     }
