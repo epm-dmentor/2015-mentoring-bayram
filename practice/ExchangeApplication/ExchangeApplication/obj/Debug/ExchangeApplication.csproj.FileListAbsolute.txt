@@ -1,6 +1,0 @@
-c:\users\admin\documents\visual studio 2012\Projects\ExchangeApplication\ExchangeApplication\bin\Debug\ExchangeApplication.exe.config
-c:\users\admin\documents\visual studio 2012\Projects\ExchangeApplication\ExchangeApplication\bin\Debug\ExchangeApplication.exe
-c:\users\admin\documents\visual studio 2012\Projects\ExchangeApplication\ExchangeApplication\bin\Debug\ExchangeApplication.pdb
-c:\users\admin\documents\visual studio 2012\Projects\ExchangeApplication\ExchangeApplication\obj\Debug\ExchangeApplication.csprojResolveAssemblyReference.cache
-c:\users\admin\documents\visual studio 2012\Projects\ExchangeApplication\ExchangeApplication\obj\Debug\ExchangeApplication.exe
-c:\users\admin\documents\visual studio 2012\Projects\ExchangeApplication\ExchangeApplication\obj\Debug\ExchangeApplication.pdb

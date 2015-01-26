@@ -4,14 +4,14 @@ namespace Epam.NetMentoring.FeedProcessor
 {
     public abstract class FeedManager
     {
-        private IFeedProcessor _feedProcessor;
+        public abstract IFeedProcessor FeedProcessor { get; }
 
         public void Process(IEnumerable<FeedItem> feeditems)
-        {
+        {            
             foreach (var item in feeditems)
             {
-                _feedProcessor.Validate(item);
-                _feedProcessor.Save(_feedProcessor.Match(item));
+                FeedProcessor.Validate(item);
+                FeedProcessor.Save(FeedProcessor.Match(item));
             }
         } 
     }

@@ -11,7 +11,7 @@ namespace Epam.NetMentoring.RetailEquity
 
         public IEnumerable<Trade> Match(IEnumerable<Trade> trades)
         {
-            return trades.Where(x => x.Type.Equals(TradeType) && x.Amount > MinTreshold && x.Amount<MaxTreshold).ToList();
+            return trades.Where(x => x.Type.Equals(TradeType) && x.Amount > MinTreshold && x.Amount < MaxTreshold);
         }
     }
 }
