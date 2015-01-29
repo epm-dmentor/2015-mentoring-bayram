@@ -24,13 +24,16 @@ namespace Epam.NetMentoring.FeedProcessor
 
         public virtual FeedItem Match(FeedItem feeditem)
         {
-            feeditem.CounterpartyId = feeditem.CounterpartyId + feeditem.PrincipalId;
-            return feeditem;
+
+            var deltaFeed = feeditem as DeltaOne;
+            
+            if (deltaFeed == null) throw new Exception("Not Supported FeedItem for processing DeltaOne.");
+            deltaFeed.CounterpartyId = deltaFeed.CounterpartyId + deltaFeed.PrincipalId;
+            return deltaFeed;
         }
 
         public virtual void Save(FeedItem matchedaccount)
         {
-            //IT: must be more evident comment: Saved Delta1 feed (not account)
             Console.WriteLine("Saved account for DeltaOne Feed {0}", matchedaccount.CounterpartyId);
         }
     }

@@ -3,8 +3,7 @@ using System.Collections.Generic;
 
 namespace Epam.NetMentoring.FeedProcessor
 {
-    //IT: the same commenst as for DeltaOneProcessor
-    public class EmFeedProcessor:IFeedProcessor
+   public class EmFeedProcessor:IFeedProcessor
     {
         public void ProcessFeedItems(IEnumerable<FeedItem> feeditems)
         {
@@ -33,8 +32,12 @@ namespace Epam.NetMentoring.FeedProcessor
 
         public virtual FeedItem Match(FeedItem feeditem)
         {
-            feeditem.SourceAccountId = feeditem.SourceAccountId + "EM_FEED";
-            return feeditem;
+            var emFeed = feeditem as EmFeed;
+            
+            if (emFeed == null) throw new Exception("Not Supported FeedItem for processing EMFeed");
+            emFeed.SourceAccountId = emFeed.SourceAccountId + "EM_FEED";
+            emFeed.AssetGmv = emFeed.AssetGmv + 1000;
+            return emFeed;
         }
 
         public virtual void Save(FeedItem matchedaccount)
