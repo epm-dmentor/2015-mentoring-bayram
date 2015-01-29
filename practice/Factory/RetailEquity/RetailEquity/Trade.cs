@@ -2,7 +2,7 @@
 {
     public class Trade
     {
-       private readonly string _type;
+        private readonly string _type;
         private readonly string _subType;
         private readonly int _amount;
 
