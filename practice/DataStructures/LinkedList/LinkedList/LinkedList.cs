@@ -2,7 +2,7 @@
 
 namespace Epam.NetMentoring.LinkedList
 {
-    public class LinkedList
+    public class LinkedList:ILinkedList
     {
         public class Node
         {
