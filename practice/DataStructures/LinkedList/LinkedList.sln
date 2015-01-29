@@ -3,6 +3,8 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 2012
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LinkedList", "LinkedList\LinkedList.csproj", "{56F3EEC6-A080-423B-B622-A3F085A438B3}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LinkedListTests", "LinkedListTests\LinkedListTests.csproj", "{617D23AF-162D-4208-9887-61E4267509FB}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -13,6 +15,10 @@ Global
 		{56F3EEC6-A080-423B-B622-A3F085A438B3}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{56F3EEC6-A080-423B-B622-A3F085A438B3}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{56F3EEC6-A080-423B-B622-A3F085A438B3}.Release|Any CPU.Build.0 = Release|Any CPU
+		{617D23AF-162D-4208-9887-61E4267509FB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{617D23AF-162D-4208-9887-61E4267509FB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{617D23AF-162D-4208-9887-61E4267509FB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{617D23AF-162D-4208-9887-61E4267509FB}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
