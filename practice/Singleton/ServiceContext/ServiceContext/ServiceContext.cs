@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace Epam.NetMentoring.ServiceContext
+﻿namespace Epam.NetMentoring.ServiceContext
 {
     public class ServiceContext
     {
@@ -10,10 +8,7 @@ namespace Epam.NetMentoring.ServiceContext
 
         private static ServiceContext _instance;
 
-        private ServiceContext()
-        {
-          
-        }
+        private ServiceContext(){}
         
         public static ServiceContext Instance
         {
@@ -23,8 +18,6 @@ namespace Epam.NetMentoring.ServiceContext
                 return _instance;
             }
         }
-
-
-      
+     
     }
 }
