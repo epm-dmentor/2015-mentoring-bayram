@@ -20,7 +20,7 @@ namespace Epam.NetMentoring.ServiceContext
             get
             {
                 if (_instance == null) return _instance = new ServiceContext();
-                throw new Exception("Cannot create object. Service Context already exists.");
+                return _instance;
             }
         }
 

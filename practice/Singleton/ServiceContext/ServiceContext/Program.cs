@@ -10,7 +10,7 @@
             service.Port = 8080;
             service.Timeout = 10000;
 
-            var secondservice = ServiceContext.Instance;
+            //var secondservice = ServiceContext.Instance;
         }
     }
 }
