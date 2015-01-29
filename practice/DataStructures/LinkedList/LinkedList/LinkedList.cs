@@ -1,4 +1,6 @@
-﻿namespace Epam.NetMentoring.LinkedList
+﻿using System;
+
+namespace Epam.NetMentoring.LinkedList
 {
     public class LinkedList
     {
@@ -12,12 +14,6 @@
         private Node _head;
         private Node _current;
 
-        public LinkedList()
-        {
-            _size = 0;
-            _head = null;
-        }
-
         public int Count
         {
             get { return _size; }
@@ -25,6 +21,7 @@
 
         public void Add(object content)
         {
+
             _size++;
 
             var node = new Node()
@@ -45,6 +42,9 @@
 
         public void InsertAt(object content, int position)
         {
+
+            if (position<0) throw new Exception();
+            
             _size++;
 
             var node = new Node()
@@ -79,8 +79,13 @@
 
         }
 
-        public Node ElementAt(int position)
+        public object ElementAt(int position)
         {
+            
+            if (position>_size) throw new ArgumentOutOfRangeException();
+
+            if (position == 0) return _head.Content;
+
             var tempNode = _head;
             Node resultNode = null;
             int count = 0;
@@ -96,7 +101,7 @@
                 tempNode = tempNode.Next;
             }
 
-            return resultNode;
+            return resultNode.Content;
         }
 
         public bool RemoveAt(int position)
