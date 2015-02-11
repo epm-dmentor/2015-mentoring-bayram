@@ -2,11 +2,10 @@
 
 namespace Epam.NetMentoring.ServiceContextThreadSafe
 {
-    //IT: public!
-    internal sealed class ServiceContext
+    public sealed class ServiceContext
     {
-        //IT: better name is syncObj
-        private static readonly object Lock = new object();
+       
+        private static readonly object SyncObj = new object();
         private static ServiceContext _instance;
 
         public string ConnectionUrl { get; set; }
@@ -19,14 +18,12 @@ namespace Epam.NetMentoring.ServiceContextThreadSafe
         {
             if (_instance != null) return _instance;
 
-            //IT: if you use Monitor.Enter you do not need to use block inside: { ... }
-            //IT: simpler construction is lock(syncObj) { ... }, it's more evident :) but you can use both
-            Monitor.Enter(Lock);
+            lock(SyncObj)
             {
                 var tempContext = new ServiceContext();
                 Volatile.Write(ref _instance,tempContext);
             }
-            Monitor.Exit(Lock);
+            
             return _instance;
         }
     }

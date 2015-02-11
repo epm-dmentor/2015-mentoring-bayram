@@ -1,4 +1,6 @@
-﻿namespace Epam.NetMentoring.ServiceContextThreadSafe
+﻿using System;
+
+namespace Epam.NetMentoring.ServiceContextThreadSafe
 {
     class Program
     {
@@ -9,7 +11,7 @@
             service.Port = 8080;
             service.Timeout = 10000;
 
-            var service2 = ServiceContext.Instance();
+            Console.ReadKey();
         }
     }
 }

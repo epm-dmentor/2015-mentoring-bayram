@@ -3,8 +3,11 @@ using System.Collections.Generic;
 
 namespace Epam.NetMentoring.FeedProcessor
 {
-   public class EmFeedProcessor:IFeedProcessor
+    public class EmFeedProcessor : IFeedProcessor
     {
+        private const int _additionalAssetValue =1000;        
+
+        private const string feedType = "EM_FEED";
         public void ProcessFeedItems(IEnumerable<FeedItem> feeditems)
         {
             foreach (var item in feeditems)
@@ -14,9 +17,7 @@ namespace Epam.NetMentoring.FeedProcessor
             }
         }
 
-        //IT: it might be virtual, but might be not. As usual Em is a concrete implementation, 
-        //and it is better to not mark it as virtual (it would be reasonable to do that for some base class: FeedProcessor)
-        public virtual IEnumerable<ValidationError> Validate(FeedItem feeditem)
+        public IEnumerable<ValidationError> Validate(FeedItem feeditem)
         {
             var validationErrors = new List<ValidationError>();
 
@@ -35,12 +36,12 @@ namespace Epam.NetMentoring.FeedProcessor
         public virtual FeedItem Match(FeedItem feeditem)
         {
             var emFeed = feeditem as EmFeed;
-            
+
             if (emFeed == null) throw new Exception("Not Supported FeedItem for processing EMFeed");
 
-            //IT: it's always better to use constant instead of values
-            emFeed.SourceAccountId = emFeed.SourceAccountId + "EM_FEED";
-            emFeed.AssetGmv = emFeed.AssetGmv + 1000;
+           
+            emFeed.SourceAccountId = emFeed.SourceAccountId + feedType;
+            emFeed.AssetGmv = emFeed.AssetGmv + _additionalAssetValue;
             return emFeed;
         }
 
