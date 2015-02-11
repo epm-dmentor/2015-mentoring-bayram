@@ -1,4 +1,5 @@
-﻿using Epam.NetMentoring.LinkedList;
+﻿using System.Collections.Generic;
+using Epam.NetMentoring.DataStructures;
 using NUnit.Framework;
 using System;
 using System.Drawing;
@@ -48,5 +49,25 @@ namespace LinkedListTests
             const int expectedElementCountsAfterRemoving = 1;
             Assert.That(linkedList.Count, Is.EqualTo(expectedElementCountsAfterRemoving));
         }
+
+        [Test]
+        public void CountTest()
+        {
+            var first = new Point(1, 2);
+            var secound = new Point(1, 3);
+            var third = new Point(1, 4);
+            var fourth = new Point(1, 6);
+            var linkedList = new LinkedList();
+            linkedList.Add(first);
+            linkedList.Add(secound);
+            linkedList.Add(third);
+            linkedList.Add(fourth);
+            const int expectedcount = 4;
+
+            Assert.That(expectedcount,Is.EqualTo(linkedList.Count));
+
+
+        }
+            
     }
 }

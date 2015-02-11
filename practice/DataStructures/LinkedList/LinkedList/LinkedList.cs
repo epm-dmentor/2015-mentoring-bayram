@@ -1,139 +1,103 @@
 ﻿using System;
 
-//IT: it's better to use some different name for namespace than the class name, ex.: Epam.NetMentoring.DataStructures
-namespace Epam.NetMentoring.LinkedList
+namespace Epam.NetMentoring.DataStructures
 {
     public class LinkedList:ILinkedList
     {
-        //IT: it's internal structure, should be either private or internal (private is better)
-        public class Node
+        class Node
         {
-            //IT: event for internal structures we have to follow OOP :) incapsulation!
-            public object Content;
-            public Node Next;
+            public Node Next { get; set; }
+            public object Data { get; private set; }
+
+            public Node(object value)
+            {
+                Next = null;
+                Data = value;
+            }
+
         }
-
-        private int _size;
+        
         private Node _head;
-        private Node _current;
+        private int _count;
 
-        //IT: You can use autoproperty instead with private set
+
         public int Count
         {
-            get { return _size; }
+            get { return _count; }
         }
 
         public void Add(object content)
         {
-
-            _size++;
-
-            var node = new Node()
-            {
-                Content = content
-            };
-
+           
+            
+            var temp = new Node(content);
             if (_head == null)
             {
-                _head = node;
+                _head = temp;
             }
             else
             {
-                _current.Next = node;
-            }
-            _current = node;
+                var current = _head;
+                while (current.Next != null)
+                {
+                    current = current.Next;
+                }
+
+                current.Next = temp;
+             }
+            _count++;
+            
         }
 
         public void InsertAt(object content, int position)
         {
-
-            if (position<0) throw new Exception();
+            if (position<0 || position>_count) throw new Exception("Out of bound Exception");
             
-            _size++;
+            var temp = new Node(content);
+            var current = _head;
 
-            var node = new Node()
+            for (var i = 1; i < position && current.Next!=null; i++)
             {
-                Content = content
-            };
-
-            if (position == 1)
-            {
-                var tempNode = _head;
-                _head = node;
-                _head.Next = tempNode;
-            }
-            int count = 0;
-            if (position > 1 && position <= _size)
-            {
-                var tempNode = _head;
-                Node lastNode = null;
-                while (tempNode != null)
-                {
-                    if (count == position - 1)
-                    {
-                        node.Next = tempNode;
-                        lastNode.Next = node;
-
-                    }
-                    count++;
-                    lastNode = tempNode;
-                    tempNode = tempNode.Next;
-                }
+                current = current.Next;
             }
 
+            temp.Next = current.Next;
+            current.Next = temp;
+            _count++;
         }
 
         public object ElementAt(int position)
         {
+            if (position < 0 || position>_count) throw new ArgumentOutOfRangeException();
+            if (position == 0) return _head.Data;
             
-            if (position>_size) throw new ArgumentOutOfRangeException();
+            var current = _head.Next;
 
-            if (position == 0) return _head.Content;
-
-            var tempNode = _head;
-            Node resultNode = null;
-            int count = 0;
-
-            while (tempNode != null)
+            for (var i = 1; i < position; i++)
             {
-                if (count == position - 1)
-                {
-                    resultNode = tempNode;
-                    break;
-                }
-                count++;
-                tempNode = tempNode.Next;
+                if (current.Next == null) return null;
+                current = current.Next;
             }
 
-            return resultNode.Content;
+            return current.Data;
         }
 
         public bool RemoveAt(int position)
         {
-            if (position == 1)
+            if (position < 1 || position > Count) return false;
+
+            var current = _head;
+           
+            for (var i = 1; i < position; i++)
             {
-                _head = null;
-                _current = null;
-                return true;
+                if (current.Next == null) return false;
+                current = current.Next;
             }
-            int count = 0;
-            if (position > 1 && position <= _size)
-            {
-                var tempNode = _head;
-                Node lastNode = null;
-                while (tempNode != null)
-                {
-                    if (count == position - 1)
-                    {
-                        lastNode.Next = tempNode.Next;
-                        return true;
-                    }
-                    count++;
-                    lastNode = tempNode;
-                    tempNode = tempNode.Next;
-                }
-            }
-            return false;
+
+            current.Next = current.Next.Next;
+            _count--;
+            return true;
+            
         }
     }
 }

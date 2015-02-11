@@ -1,4 +1,4 @@
-﻿namespace Epam.NetMentoring.LinkedList
+﻿namespace Epam.NetMentoring.DataStructures
 {
     public interface ILinkedList
     {

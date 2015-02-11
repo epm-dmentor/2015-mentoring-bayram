@@ -1,25 +1,24 @@
 ﻿using System;
 using System.Drawing;
 
-namespace Epam.NetMentoring.LinkedList
+namespace Epam.NetMentoring.DataStructures
 {
     class Program
     {
         static void Main(string[] args)
         {
-            var list = new LinkedList();
-            var point = new Point() {X=1,Y=2};
-            list.Add(point);
-            list.Add(1);
-            list.Add(2);
-            list.Add(3);
-            list.Add(4);
-            list.InsertAt(point,-1);
-            var node = list.ElementAt(0);
-            int size = list.Count;
-            list.InsertAt(5, 2);
-            list.RemoveAt(2);
+            var first = new Point(1, 2);
+            var secound = new Point(1, 3);
+            var third = new Point(1, 4);
+            var fourth = new Point(1, 6);
+            var linkedList = new LinkedList();
+            linkedList.Add(first);
+            linkedList.Add(secound);
+            linkedList.Add(third);
+            linkedList.Add(fourth);
+           
             
+
             Console.ReadKey();
         }
     }
