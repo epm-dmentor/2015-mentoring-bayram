@@ -20,7 +20,6 @@ namespace Epam.NetMentoring.DataStructures
         private Node _head;
         private int _count;
 
-
         public int Count
         {
             get { return _count; }
@@ -28,8 +27,6 @@ namespace Epam.NetMentoring.DataStructures
 
         public void Add(object content)
         {
-           
-            
             var temp = new Node(content);
             if (_head == null)
             {
