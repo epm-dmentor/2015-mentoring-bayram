@@ -7,17 +7,18 @@ namespace Epam.NetMentoring.DataStructures
     {
         static void Main(string[] args)
         {
-            var first = new Point(1, 2);
-            var secound = new Point(1, 3);
-            var third = new Point(1, 4);
-            var fourth = new Point(1, 6);
+            var el1 = new Point(1, 2);
+            var el2 = new Point(2, 4);
+            var el3 = new Point(2, 6);
+
             var linkedList = new LinkedList();
-            linkedList.Add(first);
-            linkedList.Add(secound);
-            linkedList.Add(third);
-            linkedList.Add(fourth);
-           
-            
+            linkedList.Add(el1);
+            linkedList.Add(el2);
+            linkedList.Add(el3);
+            linkedList.InsertAt(123,0);
+           // linkedList.RemoveAt(3);
+
+            var a = linkedList.ElementAt(2);
 
             Console.ReadKey();
         }
