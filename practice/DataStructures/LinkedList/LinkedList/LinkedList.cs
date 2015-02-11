@@ -1,11 +1,14 @@
 ﻿using System;
 
+//IT: it's better to use some different name for namespace than the class name, ex.: Epam.NetMentoring.DataStructures
 namespace Epam.NetMentoring.LinkedList
 {
     public class LinkedList:ILinkedList
     {
+        //IT: it's internal structure, should be either private or internal (private is better)
         public class Node
         {
+            //IT: event for internal structures we have to follow OOP :) incapsulation!
             public object Content;
             public Node Next;
         }
@@ -14,6 +17,7 @@ namespace Epam.NetMentoring.LinkedList
         private Node _head;
         private Node _current;
 
+        //IT: You can use autoproperty instead with private set
         public int Count
         {
             get { return _size; }
