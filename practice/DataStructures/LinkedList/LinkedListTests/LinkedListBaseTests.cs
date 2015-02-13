@@ -68,6 +68,95 @@ namespace LinkedListTests
 
 
         }
-            
+
+        [Test]
+        public void CheckIfElementsInsertsIntoTheEnd()
+        {
+            var first = new Point(1, 2);
+            var secound = new Point(1, 3);
+            var third = new Point(1, 4);
+            var fourth = new Point(1, 6);
+            var linkedList = new LinkedList();
+            linkedList.Add(first);
+            linkedList.Add(secound);
+            linkedList.Add(third);
+            linkedList.Add(fourth);
+
+            var actualElement = (Point)linkedList.ElementAt(3);
+            Assert.That(actualElement, Is.EqualTo(fourth));
+        }
+
+        [Test]
+        public void CheckElementAtWorksCorrectIntheMiddleOfTheList()
+        {
+            var first = new Point(1, 2);
+            var secound = new Point(1, 3);
+            var third = new Point(1, 4);
+            var fourth = new Point(1, 6);
+            var linkedList = new LinkedList();
+            linkedList.Add(first);
+            linkedList.Add(secound);
+            linkedList.Add(third);
+            linkedList.Add(fourth);
+
+            var actualElement = (Point)linkedList.ElementAt(1);
+            Assert.That(actualElement, Is.EqualTo(secound));
+        }
+
+        [Test]
+        public void CheckIfHeadHasNothangedAfterAddingNewItems()
+        {
+            var first = new Point(1, 2);
+            var secound = new Point(1, 3);
+            var third = new Point(1, 4);
+            var fourth = new Point(1, 6);
+            var linkedList = new LinkedList();
+            linkedList.Add(first);
+            linkedList.Add(secound);
+            linkedList.Add(third);
+            linkedList.Add(fourth);
+
+            var actualElement = (Point)linkedList.ElementAt(0);
+            Assert.That(actualElement, Is.EqualTo(first));
+        }
+
+        [Test]
+        public void InsertAtCanInsertInTheHead()
+        {
+            var linkedList = GetTestList();
+            var newPoint = new Point(200, 200);
+            linkedList.InsertAt(newPoint, 0);
+
+            var actualElement = (Point)linkedList.ElementAt(0);
+            Assert.That(actualElement, Is.EqualTo(newPoint));
+        }
+
+        [Test]
+        public void InsertAtCanInsertInTheTail()
+        {
+            var linkedList = GetTestList();
+            var newPoint = new Point(200, 200);
+            var newPosition = linkedList.Count;
+            Assert.DoesNotThrow(() => linkedList.InsertAt(newPoint, newPosition), String.Format("Should be able to insert into position {0}", newPosition));
+
+            var actualElement = (Point)linkedList.ElementAt(newPosition);
+            Assert.That(actualElement, Is.EqualTo(newPoint));
+        }
+
+        private ILinkedList GetTestList()
+        {
+            var first = new Point(1, 2);
+            var secound = new Point(1, 3);
+            var third = new Point(1, 4);
+            var fourth = new Point(1, 6);
+            var linkedList = new LinkedList();
+            linkedList.Add(first);
+            linkedList.Add(secound);
+            linkedList.Add(third);
+            linkedList.Add(fourth);
+
+            return linkedList;
+        }
+
     }
 }

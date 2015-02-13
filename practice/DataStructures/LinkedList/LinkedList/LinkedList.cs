@@ -34,6 +34,7 @@ namespace Epam.NetMentoring.DataStructures
             }
             else
             {
+                //IT: how to avoid redundant loop?
                 var current = _head;
                 while (current.Next != null)
                 {
