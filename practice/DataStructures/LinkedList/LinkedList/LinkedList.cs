@@ -81,6 +81,8 @@ namespace Epam.NetMentoring.DataStructures
 
             for (var i = 1; i < position; i++)
             {
+                //IT: something bad hapend, there should not be null, as you treck count, position is not out of range
+                //thus an element must be in the list
                 if (current.Next == null) return null;
                 current = current.Next;
             }
