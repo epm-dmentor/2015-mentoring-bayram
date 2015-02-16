@@ -1,5 +1,4 @@
-﻿using System.Collections.Generic;
-using Epam.NetMentoring.DataStructures;
+﻿using Epam.NetMentoring.DataStructures;
 using NUnit.Framework;
 using System;
 using System.Drawing;

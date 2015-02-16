@@ -28,28 +28,23 @@ namespace Epam.NetMentoring.DataStructures
         public void Add(object content)
         {
             var temp = new Node(content);
+
             if (_head == null)
             {
                 _head = temp;
+                _count++;
             }
             else
             {
-                //IT: how to avoid redundant loop?
-                var current = _head;
-                while (current.Next != null)
-                {
-                    current = current.Next;
-                }
-
-                current.Next = temp;
-
+                InsertAt(content, Count);
             }
-            _count++;
+
+
         }
 
         public void InsertAt(object content, int position)
         {
-            if (position < 0 || position >= _count) throw new Exception("Out of bound Exception");
+            if (position < 0 || position > _count) throw new Exception("Out of bound Exception");
             var node = new Node(content);
 
             if (position == 0)
@@ -81,9 +76,6 @@ namespace Epam.NetMentoring.DataStructures
 
             for (var i = 1; i < position; i++)
             {
-                //IT: something bad hapend, there should not be null, as you treck count, position is not out of range
-                //thus an element must be in the list
-                if (current.Next == null) return null;
                 current = current.Next;
             }
 
