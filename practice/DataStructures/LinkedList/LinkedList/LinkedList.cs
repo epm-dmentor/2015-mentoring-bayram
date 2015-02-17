@@ -3,21 +3,10 @@
 namespace Epam.NetMentoring.DataStructures
 {
     public class LinkedList : ILinkedList
+    
     {
-        class Node
-        {
-            public Node Next { get; set; }
-            public object Data { get; private set; }
-
-            public Node(object value)
-            {
-                Next = null;
-                Data = value;
-            }
-
-        }
-
         private Node _head;
+        private Node _tail;
         private int _count;
 
         public int Count
@@ -32,14 +21,26 @@ namespace Epam.NetMentoring.DataStructures
             if (_head == null)
             {
                 _head = temp;
+                _tail = temp;
                 _count++;
             }
             else
             {
-                InsertAt(content, Count);
+                var current = _tail;
+                current.Next = temp;
+                _tail = current.Next;
+                _count++;
             }
+        }
 
-
+        Node NodeAt(int position)
+        {
+            var current = _head;
+            for (var i = 1; i < position && current.Next != null; i++)
+            {
+                current = current.Next;
+            }
+            return current;
         }
 
         public void InsertAt(object content, int position)
@@ -56,11 +57,7 @@ namespace Epam.NetMentoring.DataStructures
             }
             else
             {
-                var current = _head;
-                for (var i = 1; i < position && current.Next != null; i++)
-                {
-                    current = current.Next;
-                }
+                var current = NodeAt(position);
                 node.Next = current.Next;
                 current.Next = node;
                 _count++;
@@ -72,14 +69,8 @@ namespace Epam.NetMentoring.DataStructures
             if (position < 0 || position >= _count) throw new ArgumentOutOfRangeException();
             if (position == 0) return _head.Data;
 
-            var current = _head.Next;
-
-            for (var i = 1; i < position; i++)
-            {
-                current = current.Next;
-            }
-
-            return current.Data;
+            var current = NodeAt(position);
+            return current.Next.Data;
         }
 
         public bool RemoveAt(int position)
@@ -91,13 +82,7 @@ namespace Epam.NetMentoring.DataStructures
                 _count--;
                 return true;
             }
-
-            var current = _head;
-            for (var i = 1; i < position; i++)
-            {
-                if (current.Next == null) return false;
-                current = current.Next;
-            }
+            var current = NodeAt(position);
             current.Next = current.Next.Next;
             _count--;
             return true;
