@@ -50,6 +50,29 @@ namespace LinkedListTests
         }
 
         [Test]
+        public void RemovingInTheMiddleShouldWorkProperly()
+        {
+            var el1 = new Point(1, 2);
+            var el2 = new Point(2, 4);
+            var el3 = new Point(3, 5);
+
+            var linkedList = new LinkedList();
+            linkedList.Add(el1);
+            linkedList.Add(el2);
+            linkedList.Add(el3);
+            linkedList.RemoveAt(1);
+
+            var actualElement = (Point)linkedList.ElementAt(0);
+            Assert.That(actualElement, Is.EqualTo(el1));
+
+            actualElement = (Point)linkedList.ElementAt(1);
+            Assert.That(actualElement, Is.EqualTo(el3));
+
+            const int expectedCount = 2;
+            Assert.That(linkedList.Count, Is.EqualTo(expectedCount));
+        }
+
+        [Test]
         public void CountTest()
         {
             var first = new Point(1, 2);
