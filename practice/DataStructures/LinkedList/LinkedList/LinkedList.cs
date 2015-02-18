@@ -2,8 +2,7 @@
 
 namespace Epam.NetMentoring.DataStructures
 {
-    public class LinkedList : ILinkedList
-    
+    public class LinkedList : ILinkedList    
     {
         private Node _head;
         private Node _tail;

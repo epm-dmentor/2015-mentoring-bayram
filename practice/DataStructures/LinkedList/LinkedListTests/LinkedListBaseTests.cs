@@ -142,6 +142,22 @@ namespace LinkedListTests
             Assert.That(actualElement, Is.EqualTo(newPoint));
         }
 
+        [Test]
+        public void AddAfterInsertAtMustInsertAtTheEnd()
+        {
+            var linkedList = GetTestList();
+            var newPoint = new Point(200, 200);
+            var newPosition = linkedList.Count;
+            Assert.DoesNotThrow(() => linkedList.InsertAt(newPoint, newPosition), String.Format("Should be able to insert into position {0}", newPosition));
+
+
+            var newPoint2 = new Point(201, 201);
+            Assert.DoesNotThrow(() => linkedList.Add(newPoint2), String.Format("Should add to the end"));
+
+            var actualElement = (Point)linkedList.ElementAt(linkedList.Count - 1);
+            Assert.That(actualElement, Is.EqualTo(newPoint2));
+        }
+
         private ILinkedList GetTestList()
         {
             var first = new Point(1, 2);
