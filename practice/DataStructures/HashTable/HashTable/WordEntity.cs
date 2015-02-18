@@ -1,6 +1,8 @@
-﻿namespace Epam.NetMentoring.HashTable
+﻿using System;
+
+namespace Epam.NetMentoring.HashTable
 {
-    public class WordEntity
+    public class WordEntity : IEquatable<WordEntity>
     {
         public enum WordType{ Adjective, Noun, Verb};
         public string Word { get; set; }
@@ -11,6 +13,7 @@
             return Word.GetHashCode() ^ Type.GetHashCode();
         }
 
+        //IT: кстати говоря этот метод есть в интерфейсе IEquatable<WordEntity>
         public bool Equals(WordEntity entity)
         {
             if (entity == null) return false;
@@ -20,6 +23,7 @@
 
         public override bool Equals(object obj)
         {
+            //IT: отлично что добавил типизированный Equals
             if (obj == null) return false;
             
             var wordEntity = obj as WordEntity;
