@@ -17,10 +17,23 @@ namespace Epam.NetMentoring.DataStructures
             linkedList.Add(secound);
             linkedList.Add(third);
             linkedList.Add(fourth);
+
+
+           // var newPoint = new Point(200, 200);
+            var newPoint2 = new Point(201, 201);
+           // var newPosition = linkedList.Count;
+            linkedList.Add(newPoint2);
+ 
             
-            var newPoint = new Point(200, 200);
-            var newPosition = linkedList.Count;
-            linkedList.InsertAt(newPoint, newPosition);
+            
+            
+            linkedList.InsertAt(first,3);
+
+            foreach (var s in linkedList)
+            {
+               var n = (Node)s;
+               Console.WriteLine(n.Data);
+            }
             
             Console.ReadKey();
         }

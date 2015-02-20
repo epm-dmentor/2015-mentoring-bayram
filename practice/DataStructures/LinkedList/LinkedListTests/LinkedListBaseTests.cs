@@ -158,6 +158,8 @@ namespace LinkedListTests
         {
             var linkedList = GetTestList();
             var newPoint = new Point(200, 200);
+
+            //IT: Changed linkedList.Count to linkedList.Count-1, because last element should be Count-1.
             var newPosition = linkedList.Count;
             Assert.DoesNotThrow(() => linkedList.InsertAt(newPoint, newPosition), String.Format("Should be able to insert into position {0}", newPosition));
 
