@@ -67,14 +67,6 @@ namespace Epam.NetMentoring.DataStructures
                 _head.Next = temp;
                 _count++;
             }
-            else if (position == _count-1)
-            {
-                var current = NodeAt(position);
-                node.Next = current.Next;
-                current.Next = node;
-                _tail = current.Next.Next;
-                _count++;
-            }
             else
             {
                 var current = NodeAt(position);
