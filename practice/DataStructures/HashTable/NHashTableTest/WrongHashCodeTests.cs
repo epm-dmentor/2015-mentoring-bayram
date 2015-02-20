@@ -50,8 +50,8 @@ namespace NHashTableTest
             hTable.Add(key, value1_1);
             hTable.Add(key2, value2_1);
 
-            hTable.Add(key, value1_2);
-            hTable.Add(key2, value2_2);
+            hTable[key]= value1_2;
+            hTable[key2]= value2_2;
 
             var actualValue1 = hTable.Get(key);
             Assert.That(actualValue1, Is.EqualTo(value1_2));
@@ -59,5 +59,9 @@ namespace NHashTableTest
             var actualValue2 = hTable.Get(key2);
             Assert.That(actualValue2, Is.EqualTo(value2_2));
         }
+
+
+
+
     }
 }

@@ -1,4 +1,5 @@
-﻿using Epam.NetMentoring.HashTable;
+﻿using System;
+using Epam.NetMentoring.HashTable;
 using NUnit.Framework;
 
 namespace NHashTableTest
@@ -20,6 +21,37 @@ namespace NHashTableTest
         }
 
         [Test]
+        public void AddMethodTest()
+        {
+            var good = new WordEntity { Type = WordEntity.WordType.Adjective, Word = "Good" };
+            var gooddef = new WordDefinition { Definition = "satisfactory in quality" };
+            var bad = new WordEntity { Type = WordEntity.WordType.Adjective, Word = "Bad" };
+            var baddef = new WordDefinition { Definition = "Not satisfactory in quality" };
+
+
+            var hashTable = new HashTable();
+            hashTable.Add(good, gooddef);
+            hashTable.Add(bad, baddef);
+            Assert.AreSame(gooddef,hashTable[good]); 
+            Assert.AreSame(baddef,hashTable[bad]);
+        }
+        [Test]
+        public void ContainsCheck()
+        {
+            var good = new WordEntity { Type = WordEntity.WordType.Adjective, Word = "Good" };
+            var gooddef = new WordDefinition { Definition = "satisfactory in quality" };
+            var bad = new WordEntity { Type = WordEntity.WordType.Adjective, Word = "Bad" };
+            var baddef = new WordDefinition { Definition = "Not satisfactory in quality" };
+            
+            
+            var hashTable = new HashTable();
+            hashTable.Add(good, gooddef);
+            hashTable.Add(bad,baddef);
+            Assert.IsTrue(hashTable.Contains(good));
+            Assert.IsTrue(hashTable.Contains(bad));
+        }
+
+        [Test]
         public void GetValueByKeyIndex()
         {
             var good = new WordEntity { Type = WordEntity.WordType.Adjective, Word = "Good" };
@@ -31,14 +63,16 @@ namespace NHashTableTest
         }
 
         [Test]
-        public void TestContainsMethod()
+        public void GetThrowException()
         {
             var good = new WordEntity { Type = WordEntity.WordType.Adjective, Word = "Good" };
             var gooddef = new WordDefinition { Definition = "satisfactory in quality" };
+            var bad = new WordEntity { Type = WordEntity.WordType.Adjective, Word = "Bad" };
             var hashTable = new HashTable();
             hashTable.Add(good, gooddef);
-
-            Assert.IsTrue(hashTable.Contains(good));
+            
+            Assert.Throws<Exception>(() => hashTable.Get(bad));
         }
+        
     }
 }

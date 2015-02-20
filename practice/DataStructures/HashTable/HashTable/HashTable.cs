@@ -55,7 +55,6 @@ namespace Epam.NetMentoring.HashTable
             return res;
         }
 
-
         public WordDefinition this[WordEntity key]
         {
             get { return Get(key); }
