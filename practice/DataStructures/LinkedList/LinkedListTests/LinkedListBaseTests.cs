@@ -1,4 +1,5 @@
-﻿using Epam.NetMentoring.DataStructures;
+﻿using System.Collections.Generic;
+using Epam.NetMentoring.DataStructures;
 using NUnit.Framework;
 using System;
 using System.Drawing;
@@ -34,20 +35,26 @@ namespace LinkedListTests
             Assert.Throws<ArgumentOutOfRangeException>(() => linkedList.ElementAt(10));
         }
 
+
         [Test]
         public void RemovingTheLastItem()
-        {            
-            var el1 = new Point(1, 2);
-            var el2 = new Point(2, 4);
+        {
+            var elementForRemove = 3;
+            var points = GetPoints(4);
+            var linkedList = FormLinkedList(points);
 
-            var linkedList = new LinkedList();
-            linkedList.Add(el1);
-            linkedList.Add(el2);
-            linkedList.RemoveAt(1);
-
-            const int expectedElementCountsAfterRemoving = 1;
+            linkedList.RemoveAt(elementForRemove);
+            points.RemoveAt(elementForRemove);
+            var expectedElementCountsAfterRemoving = points.Count;
             Assert.That(linkedList.Count, Is.EqualTo(expectedElementCountsAfterRemoving));
+
+            for (var i = 0; i < linkedList.Count; i++)
+            {
+                Assert.That(linkedList.ElementAt(i), Is.EqualTo(points[i]), String.Format("Element number: {0}", i));
+            }
         }
+
+
 
         [Test]
         public void RemovingInTheMiddleShouldWorkProperly()
@@ -181,8 +188,32 @@ namespace LinkedListTests
 
             var actualElement = (Point)linkedList.ElementAt(linkedList.Count - 1);
             Assert.That(actualElement, Is.EqualTo(newPoint2));
+        }        
+
+        [Test]
+        public void EnumerationShouldReturnsAllItems()
+        {
+            var points = new List<Point>(4);
+            points.Add(new Point(1, 2));
+            points.Add(new Point(1, 3));
+            points.Add(new Point(1, 4));
+            points.Add(new Point(1, 6));
+
+            var linkedList = new LinkedList();
+            linkedList.Add(points[0]);
+            linkedList.Add(points[1]);
+            linkedList.Add(points[2]);
+            linkedList.Add(points[3]);
+
+            var i = 0;
+            foreach (var point in linkedList)
+            {
+                Assert.That(point, Is.EqualTo(points[i]));
+                i++;
+            }
         }
 
+        #region Helpers
         private ILinkedList GetTestList()
         {
             var first = new Point(1, 2);
@@ -198,5 +229,28 @@ namespace LinkedListTests
             return linkedList;
         }
 
+        private static LinkedList FormLinkedList(List<Point> points)
+        {
+            var linkedList = new LinkedList();
+            foreach (var point in points)
+            {
+                linkedList.Add(point);
+            }
+
+            return linkedList;
+        }
+
+        private static List<Point> GetPoints(int count)
+        {
+            var points = new List<Point>(count);
+
+            for (var i = 0; i < count; i++)
+            {
+                points.Add(new Point(-i, i));
+            }
+
+            return points;
+        }
+        #endregion Helpers
     }
 }
