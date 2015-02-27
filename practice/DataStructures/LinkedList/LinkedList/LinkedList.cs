@@ -3,7 +3,7 @@ using System.Collections;
 
 namespace Epam.NetMentoring.DataStructures
 {
-    public class LinkedList : ILinkedList,IEnumerable    
+    public partial class LinkedList : ILinkedList, IEnumerable
     {
         private Node _head;
         private Node _tail;
@@ -51,7 +51,7 @@ namespace Epam.NetMentoring.DataStructures
             if (position == 0 && _head == null)
             {
                 Add(content);
-                
+
             }
             else if (position == _count)
             {
@@ -80,7 +80,7 @@ namespace Epam.NetMentoring.DataStructures
         {
             if (position < 0 || position >= _count) throw new ArgumentOutOfRangeException();
             if (position == 0) return _head.Data;
-            if (position == _count-1) return _tail.Data;
+            if (position == _count - 1) return _tail.Data;
             var current = NodeAt(position);
             return current.Next.Data;
         }
@@ -94,26 +94,36 @@ namespace Epam.NetMentoring.DataStructures
                 _count--;
                 return true;
             }
-            if (position == _count)
+            if (position == _count - 1)
             {
-                var prevtail = NodeAt(position - 1);
+                var prevtail = NodeAt(position);
                 _tail = prevtail;
+                _tail.Next = null;
                 _count--;
             }
-            var current = NodeAt(position);
-            current.Next = current.Next.Next;
-            _count--;
+            else
+            {
+                var current = NodeAt(position);
+                current.Next = current.Next.Next;
+                _count--;
+            }
             return true;
         }
 
         public IEnumerator GetEnumerator()
         {
             var current = _head;
-            for (var i = 1; i < Count && current.Next != null; i++)
+            for (var i = 0; i < Count && current.Next != null; i++)
             {
-                yield return current = current.Next;
+                yield return current.Data;
+                current = current.Next;
             }
-            
         }
+
+        internal partial class Node
+        {
+
+        }
+
     }
 }
