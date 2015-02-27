@@ -44,6 +44,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="HashBucket.cs" />
     <Compile Include="HashItem.cs" />
     <Compile Include="HashTable.cs" />
     <Compile Include="IHashTable.cs" />

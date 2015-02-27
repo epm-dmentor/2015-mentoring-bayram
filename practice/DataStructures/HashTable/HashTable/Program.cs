@@ -1,4 +1,6 @@
-﻿namespace Epam.NetMentoring.HashTable
+﻿using System;
+
+namespace Epam.NetMentoring.HashTable
 {
     class Program
     {
@@ -18,13 +20,19 @@
             hashTable.Add(good,gooddef);
             hashTable.Add(go,godef);
             hashTable.Add(house,housedef);
-           
 
-            var val = hashTable.Get(good);
+            for (var i = 1; i < 130; i++)
+            {
+                hashTable.Add(new WordEntity{Type = WordEntity.WordType.Adjective,Word = "asda"+i}, new WordDefinition{Definition = "asdasd"+i});
+            }
+
+            var test = new WordEntity {Type = WordEntity.WordType.Adjective, Word = "asda" + 4};
+            var val = hashTable.Get(test);
             var val1 = hashTable.Get(house);
             var val3 = hashTable[good];
             hashTable[good] = housedef;
             var v = hashTable[good];
+            Console.ReadKey();
         }
     }
 }
