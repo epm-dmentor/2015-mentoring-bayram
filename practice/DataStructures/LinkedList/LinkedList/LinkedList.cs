@@ -33,26 +33,38 @@ namespace Epam.NetMentoring.DataStructures
             }
         }
 
+        //IT: возвращает предыдущий указанной позиции?
+
+        //1
+        //0
         Node NodeAt(int position)
         {
             var current = _head;
+            //IT: если ф-ия получит 9, а элементов 4, ф-ия вернет просто последний, но не 9й!
             for (var i = 1; i < position && current.Next != null; i++)
             {
                 current = current.Next;
             }
+
             return current;
         }
 
         public void InsertAt(object content, int position)
         {
-            if (position < 0 || position > _count) throw new Exception("Out of bound Exception");
+            //new ArgumentOutOfRangeException("position", String.Format("Requested position: {0}, list's size = {1}))
+            if (position < 0 || position > _count) throw new Exception("Out of bound Exception"); //IT: not clear
             var node = new Node(content);
 
-            if (position == 0 && _head == null)
+            //IT: можно обьеденить условия 1 и 2
+            if (
+                //if a list is not initialized yet
+                position == 0 && _head == null ||
+                //if we try to insert to the end
+                position == _count)
             {
                 Add(content);
-
             }
+                /*
             else if (position == _count)
             {
                 var current = _tail;
@@ -60,6 +72,7 @@ namespace Epam.NetMentoring.DataStructures
                 _tail = current.Next;
                 _count++;
             }
+                 */
             else if (position == 0)
             {
                 var temp = _head;
@@ -88,41 +101,37 @@ namespace Epam.NetMentoring.DataStructures
         public bool RemoveAt(int position)
         {
             if (position < 0 || position >= Count) return false;
+
             if (position == 0)
             {
                 _head = _head.Next;
-                _count--;
-                return true;
             }
-            if (position == _count - 1)
+            else if (position == _count - 1)
             {
                 var prevtail = NodeAt(position);
                 _tail = prevtail;
                 _tail.Next = null;
-                _count--;
+    
             }
             else
             {
                 var current = NodeAt(position);
                 current.Next = current.Next.Next;
-                _count--;
             }
+            
+            _count--;
             return true;
         }
 
         public IEnumerator GetEnumerator()
         {
             var current = _head;
-            for (var i = 0; i < Count && current.Next != null; i++)
+            //IT: я бы вайл использовал
+            while (current != null)
             {
                 yield return current.Data;
                 current = current.Next;
             }
-        }
-
-        internal partial class Node
-        {
-
         }
 
     }

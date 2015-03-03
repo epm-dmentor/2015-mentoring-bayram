@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Drawing;
 using Epam.NetMentoring.DataStructures;
 using NUnit.Framework;
@@ -71,6 +72,21 @@ namespace LinkedListTests
                 Assert.That(point, Is.EqualTo(points[i]));
                 i++;
             }
+        }
+
+        [Test]
+        public void EnumerationOfEmptyListShouldNotGenerateException()
+        {
+            var linkedList = new LinkedList();
+
+            var i = 0;
+            foreach (var point in linkedList)
+            {
+                Console.Write(point);
+                i++;
+            }
+
+            Assert.That(linkedList.Count, Is.EqualTo(0));
         }
 
 

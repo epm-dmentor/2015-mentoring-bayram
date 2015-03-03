@@ -5,9 +5,10 @@ namespace Epam.NetMentoring.HashTable
 {
     public class HashTable : IHashTable
     {
-        private static int _size = 128;
+        private const int InitialSize = 128;
+        private int _size = InitialSize;
         private int _count;
-        private HashBucket[] table = new HashBucket[_size];
+        private HashBucket[] table = new HashBucket[InitialSize];
        
         private int Compress(WordEntity key)
         {
@@ -62,6 +63,7 @@ namespace Epam.NetMentoring.HashTable
             get { return Get(key); }
             set
             {
+                //IT: if ht[v] = null
                 var hash = Compress(key);
                 var hashItems = table[hash].GetBucketElements();
                 if (hashItems != null)
