@@ -26,6 +26,9 @@ namespace Epam.NetMentoring.HashTable
             if (_count >= _size)
             {
                 _size = _size*2;
+                var tempArray = new HashBucket[_size];
+                Array.Copy(table,tempArray,_size);
+                table = tempArray;
             }
             var node = new HashItem(key, value);
             var hash = Compress(key);
@@ -63,13 +66,21 @@ namespace Epam.NetMentoring.HashTable
             get { return Get(key); }
             set
             {
-                //IT: if ht[v] = null
                 var hash = Compress(key);
                 var hashItems = table[hash].GetBucketElements();
-                if (hashItems != null)
+                
+                if (value == null)
                 {
-                    hashItems.FirstOrDefault(x => x.Key.Equals(key)).Value = value;
+                    hashItems.Remove(hashItems.FirstOrDefault(x => x.Key.Equals(key)));
                 }
+                else
+                {
+                  if (hashItems != null)
+                  {
+                    hashItems.FirstOrDefault(x => x.Key.Equals(key)).Value = value;
+                  }  
+                }
+                
             }
         }
     }
