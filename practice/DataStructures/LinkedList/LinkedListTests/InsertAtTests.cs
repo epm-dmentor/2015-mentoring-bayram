@@ -16,7 +16,7 @@ namespace LinkedListTests
         public void ThrowExceptionInCaseInsertingToIncorrectPosition()
         {
             var linkedList = new LinkedList();
-            Assert.Throws<Exception>(() => linkedList.InsertAt(new Point(1, 2), -1));
+            Assert.Throws<ArgumentOutOfRangeException>(() => linkedList.InsertAt(new Point(1, 2), -1));
         }
 
         [Test]
