@@ -32,6 +32,9 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Epam.NetMentoring.Adapter">
+      <HintPath>..\..\..\Patterns\Adapter\AdapterPattern\Adapter\bin\Release\Epam.NetMentoring.Adapter.dll</HintPath>
+    </Reference>
     <Reference Include="nunit.framework">
       <HintPath>..\packages\NUnit.2.6.4\lib\nunit.framework.dll</HintPath>
     </Reference>
@@ -47,6 +50,7 @@
     <Compile Include="HashBucket.cs" />
     <Compile Include="HashItem.cs" />
     <Compile Include="HashTable.cs" />
+    <Compile Include="HashTableContainer.cs" />
     <Compile Include="IHashTable.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

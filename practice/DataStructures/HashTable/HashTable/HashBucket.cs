@@ -20,6 +20,6 @@ namespace Epam.NetMentoring.HashTable
         {
             return _hashItems;
         }
-        //List<HashItem> HashItems { get; set; } 
+       
     }
 }

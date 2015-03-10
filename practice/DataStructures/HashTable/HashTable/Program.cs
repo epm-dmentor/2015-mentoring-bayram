@@ -1,4 +1,5 @@
 ﻿using System;
+using Epam.NetMentoring.Adapter;
 
 namespace Epam.NetMentoring.HashTable
 {
@@ -32,6 +33,13 @@ namespace Epam.NetMentoring.HashTable
             var val3 = hashTable[good];
             hashTable[good] = housedef;
             var v = hashTable[good];
+
+            var bucket = new HashBucket(new HashItem(good, gooddef));
+            bucket.Add(new HashItem(go,godef));
+            var printer = new Printer();
+            var container = new HashTableContainer(bucket);
+            printer.Print(container);
+            Console.WriteLine(container.Count);
             Console.ReadKey();
         }
     }
