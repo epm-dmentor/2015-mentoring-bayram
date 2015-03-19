@@ -3,6 +3,7 @@
     public partial class LinkedList
     {
 
+        //IT: class Node should not be partial
         internal partial class Node
         {
             public Node Next { get; set; }

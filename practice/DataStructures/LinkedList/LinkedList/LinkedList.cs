@@ -40,6 +40,8 @@ namespace Epam.NetMentoring.DataStructures
                 throw new ArgumentOutOfRangeException("position",
                           String.Format("Requested positions: {0}, list size = {1}", position, _count));
             
+
+            //IT: it's better to use while loop in such cases and try to use only position varuable
             for (var i = 1; i < position && current.Next != null; i++)
             {
                 current = current.Next;
