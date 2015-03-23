@@ -1,0 +1,2 @@
+{Fullname='NetMentoring.Epam.ReflectionTask'}{Name='ServiceSettings'}{Service='Test'}{Connection='Bayram'}
+{Fullname=''}{Name='ParsingSettings'}{Options='None'}{Location='Ukraine'}{Url='http://localhost'}
