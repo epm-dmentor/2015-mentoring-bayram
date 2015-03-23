@@ -1,0 +1,5 @@
+NetMentoring.Epam.ReflectionTask.ServiceSettings.Service='Test'
+NetMentoring.Epam.ReflectionTask.ServiceSettings.Connection='Bayram'
+NetMentoring.Epam.ReflectionTask.ParsingSettings.Options='None'
+NetMentoring.Epam.ReflectionTask.ParsingSettings.Location='Ukraine'
+NetMentoring.Epam.ReflectionTask.ParsingSettings.Url='http://localhost'

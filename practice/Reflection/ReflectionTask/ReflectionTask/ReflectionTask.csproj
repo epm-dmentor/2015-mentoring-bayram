@@ -45,7 +45,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="ConfigProvider.cs" />
+    <Compile Include="ConfigProviderProd.cs" />
     <Compile Include="IConfigProvider.cs" />
     <Compile Include="ConfigEntity.cs" />
     <Compile Include="ParsingSettings.cs" />
@@ -58,7 +58,7 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="ConfigFiles\Dev.txt" />
+    <Content Include="ConfigFiles\Prod.txt" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

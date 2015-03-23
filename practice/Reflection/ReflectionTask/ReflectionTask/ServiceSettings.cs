@@ -16,7 +16,7 @@
 
         public bool Equals(ServiceSettings service)
         {
-            return (object) service != null && ((Connection == service.Connection) && (Service == service.Connection));
+            return (object) service != null && ((Connection == service.Connection) && (Service == service.Service));
         }
 
         public override int GetHashCode()
