@@ -1,6 +1,5 @@
 ﻿namespace Epam.NetMentoring.HashTable
 {
-    //IT: must have been public!
     public interface IHashTable
     {
         bool Contains(WordEntity key);

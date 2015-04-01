@@ -50,7 +50,6 @@
     <Compile Include="HashBucket.cs" />
     <Compile Include="HashItem.cs" />
     <Compile Include="HashTable.cs" />
-    <Compile Include="HashTableContainer.cs" />
     <Compile Include="IHashTable.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

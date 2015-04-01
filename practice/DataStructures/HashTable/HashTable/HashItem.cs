@@ -1,6 +1,6 @@
 ﻿namespace Epam.NetMentoring.HashTable
 {
-    public class HashItem
+    internal class HashItem
     {
        public HashItem(WordEntity key, WordDefinition value)
        {
