@@ -33,7 +33,6 @@ namespace Epam.NetMentoring.HashTable
 
             var node = new HashItem(key, value);
             var hash = Compress(key);
-
             if (_table[hash] == null)
             {
                 _table[hash] = new HashBucket(node);
@@ -43,6 +42,7 @@ namespace Epam.NetMentoring.HashTable
             {
                 //IT: count issue
                 _table[hash].Add(node);
+                _count++;
             }
         }
 
@@ -55,9 +55,7 @@ namespace Epam.NetMentoring.HashTable
         private void Resize()
         {
             _size = _size * 2;
-            var tempArray = new HashBucket[_size];
-            Array.Copy(_table, tempArray, _size);
-            _table = tempArray;
+            Array.Resize(ref _table,_size);
         }
 
         public WordDefinition Get(WordEntity key)
@@ -81,17 +79,20 @@ namespace Epam.NetMentoring.HashTable
                 if (value == null && bucket != null)
                 {
                     bucket.Remove(key);
+                    _count--;
                 }
                 else
                 {
                     if (bucket == null)
                     {
                         Add(key, value);
+                       
                     }
                     else
                     {
                         //IT: resizing and count not incremented!
                         bucket.Set(key, value);
+                        _count++;
                     }
                 }
 

@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace Epam.NetMentoring.HashTable
+﻿namespace Epam.NetMentoring.HashTable
 {
     class Program
     {

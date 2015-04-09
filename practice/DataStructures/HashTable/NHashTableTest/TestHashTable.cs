@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using Epam.NetMentoring.HashTable;
 using NUnit.Framework;
 
@@ -71,7 +72,18 @@ namespace NHashTableTest
             var hashTable = new HashTable();
             hashTable.Add(good, gooddef);
             
-            Assert.Throws<Exception>(() => hashTable.Get(bad));
+            Assert.Throws<KeyNotFoundException>(() => hashTable.Get(bad));
+        }
+
+        [Test]
+        public void AddByIndexing()
+        {
+            var good = new WordEntity { Type = WordEntity.WordType.Adjective, Word = "Good" };
+            var gooddef = new WordDefinition { Definition = "satisfactory in quality" };
+            var hashTable = new HashTable();
+            hashTable[good] = gooddef;
+            
+            Assert.That(hashTable.Get(good),Is.EqualTo(gooddef));
         }
         
     }
